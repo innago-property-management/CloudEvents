@@ -18,7 +18,7 @@ internal sealed class Publisher(IConnection connection, ILogger<Publisher> logge
     public async Task PublishAsync(string subject, CloudEvent cloudEvent)
     {
         CloudEventFormatter formatter = new JsonEventFormatter<EntityEventInfo>();
-        Message message = cloudEvent.ToAmqpMessage(ContentMode.Structured, formatter);
+        Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
 
         logger.PublishInformation(JsonSerializer.Serialize(message));
 
@@ -37,6 +37,7 @@ internal sealed class Publisher(IConnection connection, ILogger<Publisher> logge
         catch
         {
             // troubleshooting
+            throw;
         }
         finally
         {

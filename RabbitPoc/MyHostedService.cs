@@ -36,17 +36,22 @@ internal class MyHostedService(Publisher publisher) : IHostedService
         var verb = MyHostedService.Faker.PickRandom<Verb>();
         string entityId = MyHostedService.Faker.Random.AlphaNumeric(8);
         string tenantId = MyHostedService.Faker.Random.AlphaNumeric(8);
-        var subject = $"{entityName}.{verb}.{entityId}";
+        var subject = $"{entityName}:{verb}:{entityId}:{tenantId}";
 
         CloudEvent cloudEvent = new()
         {
             Id = Guid.NewGuid().ToString(),
             Source = new Uri("urn:innago-com:poc-emitter"),
             Type = "com.innago.entity-event",
-            Data = new EntityEventInfo(entityName, entityId, verb, tenantId),
+            // Data = new EntityEventInfo(entityName, entityId, verb, tenantId),
             Subject = subject,
             Time = DateTimeOffset.UtcNow,
         };
+        
+        cloudEvent.SetAttributeFromString(nameof(entityName).ToLowerInvariant(), entityName);
+        cloudEvent.SetAttributeFromString(nameof(entityId).ToLowerInvariant(), entityId);
+        cloudEvent.SetAttributeFromString(nameof(tenantId).ToLowerInvariant(), tenantId);
+        cloudEvent.SetAttributeFromString(nameof(verb).ToLowerInvariant(), Enum.GetName(verb)!);
 
         return (subject, cloudEvent);
     }
