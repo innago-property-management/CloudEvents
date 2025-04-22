@@ -10,16 +10,13 @@ internal class MyHostedService(Publisher publisher) : IHostedService
 {
     private static readonly Faker Faker = new();
 
-    private static readonly IEnumerable<string> EntityNames =
-        MyHostedService.Faker.Make(5, () => MyHostedService.Faker.Commerce.Product().Replace(" ", string.Empty));
-
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            (string subject, CloudEvent cloudEvent) = MakeCloudEvent();
+            CloudEvent cloudEvent = MakeCloudEvent();
 
-            await publisher.PublishAsync(subject, cloudEvent);
+            await publisher.PublishAsync<SomeEntity>(cloudEvent);
 
             Thread.Sleep(1_000);
         }
@@ -30,29 +27,20 @@ internal class MyHostedService(Publisher publisher) : IHostedService
         return publisher.DisposeAsync().AsTask();
     }
 
-    private static (string subject, CloudEvent cloudEvent) MakeCloudEvent()
+    private static CloudEvent MakeCloudEvent()
     {
-        var entityName = $"Innago.Demo.CloudEvents.{MyHostedService.Faker.PickRandom(MyHostedService.EntityNames)}";
         var verb = MyHostedService.Faker.PickRandom<Verb>();
         string entityId = MyHostedService.Faker.Random.AlphaNumeric(8);
         string tenantId = MyHostedService.Faker.Random.AlphaNumeric(8);
-        var subject = $"{entityName}:{verb}:{entityId}:{tenantId}";
 
-        CloudEvent cloudEvent = new()
-        {
-            Id = Guid.NewGuid().ToString(),
-            Source = new Uri("urn:innago-com:poc-emitter"),
-            Type = "com.innago.entity-event",
-            // Data = new EntityEventInfo(entityName, entityId, verb, tenantId),
-            Subject = subject,
-            Time = DateTimeOffset.UtcNow,
-        };
-        
-        cloudEvent.SetAttributeFromString(nameof(entityName).ToLowerInvariant(), entityName);
-        cloudEvent.SetAttributeFromString(nameof(entityId).ToLowerInvariant(), entityId);
-        cloudEvent.SetAttributeFromString(nameof(tenantId).ToLowerInvariant(), tenantId);
-        cloudEvent.SetAttributeFromString(nameof(verb).ToLowerInvariant(), Enum.GetName(verb)!);
+        var data = new SomeEntity(MyHostedService.Faker.Commerce.Color());
 
-        return (subject, cloudEvent);
+        var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data);
+
+        var cloudEvent = info.ToCloudEvent();
+
+        return cloudEvent;
     }
+
+    internal record SomeEntity(string Value);
 }

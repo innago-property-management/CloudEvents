@@ -1,7 +1,5 @@
 namespace RabbitPoc;
 
-using System.Text.Json;
-
 using Amqp;
 using Amqp.Framing;
 
@@ -13,20 +11,28 @@ using Microsoft.Extensions.Logging;
 
 internal sealed class Publisher(IConnection connection, ILogger<Publisher> logger) : IAsyncDisposable
 {
+    private const string AddressPrefix = "/exchanges/innago-entity-events";
+    private const string SenderName = "entity-event-publish";
     private readonly Lazy<ISession> session = new(connection.CreateSession);
 
-    public async Task PublishAsync(string subject, CloudEvent cloudEvent)
+    public ValueTask DisposeAsync()
     {
-        CloudEventFormatter formatter = new JsonEventFormatter<EntityEventInfo>();
+        return new ValueTask(this.session.Value.CloseAsync());
+    }
+
+    public async Task PublishAsync<T>(CloudEvent cloudEvent)
+    {
+        CloudEventFormatter formatter = new JsonEventFormatter<T>();
+
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
 
-        logger.PublishInformation(JsonSerializer.Serialize(message));
+        logger.PublishInformation(string.Join(", ", cloudEvent.GetPopulatedAttributes().Select(pair => $"{pair.Key.Name} <- {pair.Value}")));
 
         ISenderLink link = this.session.Value.CreateSender(
-            "a",
+            Publisher.SenderName,
             new Target
             {
-                Address = $"/exchanges/innago-entity-events/{subject}",
+                Address = $"{Publisher.AddressPrefix}/{cloudEvent.Subject}",
                 Durable = 1,
             });
 
@@ -42,10 +48,5 @@ internal sealed class Publisher(IConnection connection, ILogger<Publisher> logge
         {
             await link.CloseAsync().ConfigureAwait(false);
         }
-    }
-
-    public ValueTask DisposeAsync()
-    {
-        return new ValueTask(this.session.Value.CloseAsync());
     }
 }
