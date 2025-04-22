@@ -1,0 +1,4 @@
+Innago.Platform.Messaging.Publisher.Amqp.Publisher
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.DisposeAsync() -> System.Threading.Tasks.ValueTask
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.PublishAsync<T>(CloudNative.CloudEvents.CloudEvent! cloudEvent) -> System.Threading.Tasks.Task!
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.Publisher(Amqp.IConnection! connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher!>! logger, string! addressPrefix = "/exchanges/innago-entity-events", string! senderName = "entity-event-publish") -> void

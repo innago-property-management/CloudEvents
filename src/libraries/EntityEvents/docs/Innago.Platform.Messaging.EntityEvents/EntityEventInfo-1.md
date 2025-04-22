@@ -1,7 +1,7 @@
 # EntityEventInfo&lt;T&gt; record
 
 ```csharp
-public record EntityEventInfo<T> : IEntityEventsInfo<T>
+public record EntityEventInfo<T> : IEntityEventInfo<T>
 ```
 
 ## Public Members

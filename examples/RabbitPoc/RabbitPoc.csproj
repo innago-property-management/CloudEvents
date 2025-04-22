@@ -30,4 +30,10 @@
       </AdditionalFiles>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\libraries\EntityEvents\EntityEvents.csproj" />
+      <ProjectReference Include="..\..\src\libraries\Publisher.Abstractions\Publisher.Abstractions.csproj" />
+      <ProjectReference Include="..\..\src\libraries\Publisher.Amqp\Publisher.Amqp.csproj" />
+    </ItemGroup>
+
 </Project>

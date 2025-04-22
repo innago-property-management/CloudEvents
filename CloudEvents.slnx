@@ -5,6 +5,8 @@
   <Folder Name="/src/libraries/">
     <Project Path="src\libraries\EntityEvents.Abstractions\EntityEvents.Abstractions.csproj" Type="Classic C#" />
     <Project Path="src\libraries\EntityEvents\EntityEvents.csproj" Type="Classic C#" />
+    <Project Path="src\libraries\Publisher.Abstractions\Publisher.Abstractions.csproj" Type="Classic C#" />
+    <Project Path="src\libraries\Publisher.Amqp\Publisher.Amqp.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/tests/" />
 </Solution>

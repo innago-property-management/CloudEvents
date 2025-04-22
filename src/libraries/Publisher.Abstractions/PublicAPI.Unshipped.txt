@@ -1,0 +1,2 @@
+Innago.Platform.Messaging.Publisher.IPublisher
+Innago.Platform.Messaging.Publisher.IPublisher.PublishAsync<T>(CloudNative.CloudEvents.CloudEvent! cloudEvent) -> System.Threading.Tasks.Task!

@@ -1,40 +1,50 @@
-namespace RabbitPoc;
+namespace Innago.Platform.Messaging.Publisher.Amqp;
 
 using System.Text.Json;
-
-using Amqp;
-using Amqp.Framing;
 
 using CloudNative.CloudEvents;
 using CloudNative.CloudEvents.Amqp;
 using CloudNative.CloudEvents.SystemTextJson;
 
+using global::Amqp;
+using global::Amqp.Framing;
+
+using Innago.Platform.Messaging.Publisher;
+
 using Microsoft.Extensions.Logging;
 
-internal sealed class Publisher(IConnection connection, ILogger<Publisher> logger) : IAsyncDisposable
+/// <summary>
+/// Represents a publisher for sending CloudEvent messages to an AMQP-based messaging system.
+/// Encapsulates the logic for establishing a session, creating sender links, and publishing events.
+/// </summary>
+public sealed class Publisher(
+    IConnection connection,
+    ILogger<Publisher> logger,
+    string addressPrefix = "/exchanges/innago-entity-events",
+    string senderName = "entity-event-publish") : IPublisher
 {
-    private const string AddressPrefix = "/exchanges/innago-entity-events";
-    private const string SenderName = "entity-event-publish";
     private readonly Lazy<ISession> session = new(connection.CreateSession);
 
+    /// <inheritdoc />
     public ValueTask DisposeAsync()
     {
         return new ValueTask(this.session.Value.CloseAsync());
     }
 
+    /// <inheritdoc />
     public async Task PublishAsync<T>(CloudEvent cloudEvent)
     {
         CloudEventFormatter formatter = new JsonEventFormatter<T>();
 
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
 
-        logger.PublishInformation(JsonSerializer.Serialize( cloudEvent.GetPopulatedAttributes().ToDictionary(pair => pair.Key.Name, pair => pair.Value)));
+        logger.PublishInformation(JsonSerializer.Serialize(cloudEvent.GetPopulatedAttributes().ToDictionary(pair => pair.Key.Name, pair => pair.Value)));
 
         ISenderLink link = this.session.Value.CreateSender(
-            Publisher.SenderName,
+            senderName,
             new Target
             {
-                Address = $"{Publisher.AddressPrefix}/{cloudEvent.Subject}",
+                Address = $"{addressPrefix}/{cloudEvent.Subject}",
                 Durable = 1,
             });
 

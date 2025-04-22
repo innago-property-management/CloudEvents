@@ -4,11 +4,11 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <RootNamespace>Innago.Platform.Messaging.EntityEvents</RootNamespace>
-        <AssemblyName>Innago.Platform.Messaging.EntityEvents.Abstractions</AssemblyName>
+        <RootNamespace>Innago.Platform.Messaging.Publisher</RootNamespace>
+        <AssemblyName>Innago.Platform.Messaging.Publisher.Abstractions</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>Entity Events Abstractions</Title>
+        <Title>Publisher Abstractions</Title>
         <Copyright>2025 Innago</Copyright>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <IsPackable>True</IsPackable>
@@ -20,12 +20,13 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>bin\Debug\netstandard2.0\EntityEvents.Abstractions.xml</DocumentationFile>
+        <DocumentationFile>bin\Debug\netstandard2.0\Publisher.Abstractions.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CloudNative.CloudEvents" Version="2.8.0"/>
+        <PackageReference Include="CloudNative.CloudEvents" Version="2.8.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.4" />
         <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -41,10 +42,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
-        <None Remove="PublicAPI.Unshipped.txt"/>
-        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
-        <None Include="README.md" Pack="true" PackagePath="\"/>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+        <None Remove="PublicAPI.Unshipped.txt" />
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,9 @@
 
 using Amqp;
 
+using Innago.Platform.Messaging.Publisher;
+using Innago.Platform.Messaging.Publisher.Amqp;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -35,11 +38,11 @@ builder.ConfigureServices((context, services) =>
 
         var factory = ActivatorUtilities.GetServiceOrCreateInstance<IConnectionFactory>(provider);
         var f = new Lazy<Task<IConnection>>(async () => await factory.CreateAsync(address).ConfigureAwait(false));
-        
+
         return f.Value.Result;
     });
 
-    services.TryAddSingleton<Publisher>();
+    services.TryAddSingleton<IPublisher, Publisher>();
 
     services.AddHostedService<MyHostedService>();
 });

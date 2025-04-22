@@ -4,9 +4,12 @@ using Bogus;
 
 using CloudNative.CloudEvents;
 
+using Innago.Platform.Messaging.EntityEvents;
+using Innago.Platform.Messaging.Publisher;
+
 using Microsoft.Extensions.Hosting;
 
-internal class MyHostedService(Publisher publisher) : IHostedService
+internal class MyHostedService(IPublisher publisher) : IHostedService
 {
     private static readonly Faker Faker = new();
 
@@ -42,5 +45,5 @@ internal class MyHostedService(Publisher publisher) : IHostedService
         return cloudEvent;
     }
 
-    internal record SomeEntity(string Value);
+    private record SomeEntity(string Value);
 }
