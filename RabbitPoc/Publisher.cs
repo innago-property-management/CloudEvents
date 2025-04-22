@@ -34,10 +34,9 @@ internal sealed class Publisher(IConnection connection, ILogger<Publisher> logge
         {
             await link.SendAsync(message).ConfigureAwait(false);
         }
-        catch
+        catch (Exception ex)
         {
-            // troubleshooting
-            throw;
+            logger.Error(ex.GetType().Name, ex.Message);
         }
         finally
         {
