@@ -1,0 +1,12 @@
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Data.get -> T?
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Data.init -> void
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.EntityEventInfo(string! Id, Innago.Platform.Messaging.EntityEvents.Verb Verb, string? TenantId = null, T? Data = default(T?)) -> void
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.EntityName.get -> string!
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Id.get -> string!
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Id.init -> void
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Subject.get -> string!
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.TenantId.get -> string?
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.TenantId.init -> void
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Verb.get -> Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Verb.init -> void

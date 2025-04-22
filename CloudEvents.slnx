@@ -1,0 +1,10 @@
+﻿<Solution>
+  <Folder Name="/examples/">
+    <Project Path="examples\RabbitPoc\RabbitPoc.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/src/libraries/">
+    <Project Path="src\libraries\EntityEvents.Abstractions\EntityEvents.Abstractions.csproj" Type="Classic C#" />
+    <Project Path="src\libraries\EntityEvents\EntityEvents.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>

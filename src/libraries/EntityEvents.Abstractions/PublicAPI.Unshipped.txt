@@ -1,0 +1,11 @@
+Innago.Platform.Messaging.EntityEvents.IEntityEventsInfo<T>
+Innago.Platform.Messaging.EntityEvents.IEntityEventsInfo<T>.Data.get -> T?
+Innago.Platform.Messaging.EntityEvents.IEntityEventsInfo<T>.EntityName.get -> string!
+Innago.Platform.Messaging.EntityEvents.IEntityEventsInfo<T>.Id.get -> string!
+Innago.Platform.Messaging.EntityEvents.IEntityEventsInfo<T>.Subject.get -> string!
+Innago.Platform.Messaging.EntityEvents.IEntityEventsInfo<T>.TenantId.get -> string?
+Innago.Platform.Messaging.EntityEvents.IEntityEventsInfo<T>.Verb.get -> Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.Verb.Create = 0 -> Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.Verb.Delete = 2 -> Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.Verb.Update = 1 -> Innago.Platform.Messaging.EntityEvents.Verb

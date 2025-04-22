@@ -1,5 +1,7 @@
 namespace RabbitPoc;
 
+using System.Text.Json;
+
 using Amqp;
 using Amqp.Framing;
 
@@ -26,7 +28,7 @@ internal sealed class Publisher(IConnection connection, ILogger<Publisher> logge
 
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
 
-        logger.PublishInformation(string.Join(", ", cloudEvent.GetPopulatedAttributes().Select(pair => $"{pair.Key.Name} <- {pair.Value}")));
+        logger.PublishInformation(JsonSerializer.Serialize( cloudEvent.GetPopulatedAttributes().ToDictionary(pair => pair.Key.Name, pair => pair.Value)));
 
         ISenderLink link = this.session.Value.CreateSender(
             Publisher.SenderName,
