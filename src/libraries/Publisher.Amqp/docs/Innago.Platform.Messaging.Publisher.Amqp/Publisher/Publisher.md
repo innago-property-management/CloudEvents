@@ -1,9 +1,8 @@
 # Publisher constructor
 
 ```csharp
-public Publisher(IConnection connection, ILogger<Publisher> logger, 
-    string addressPrefix = "/exchanges/innago-entity-events", 
-    string senderName = "entity-event-publish")
+public Publisher(IConnection connection, ILogger<Publisher> logger, string addressPrefix, 
+    string senderName)
 ```
 
 ## See Also

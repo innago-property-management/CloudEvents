@@ -20,8 +20,8 @@ using Microsoft.Extensions.Logging;
 public sealed class Publisher(
     IConnection connection,
     ILogger<Publisher> logger,
-    string addressPrefix = "/exchanges/innago-entity-events",
-    string senderName = "entity-event-publish") : IPublisher
+    string addressPrefix,
+    string senderName) : IPublisher
 {
     private readonly Lazy<ISession> session = new(connection.CreateSession);
 
@@ -38,7 +38,7 @@ public sealed class Publisher(
 
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
 
-        logger.PublishInformation(JsonSerializer.Serialize(cloudEvent.GetPopulatedAttributes().ToDictionary(pair => pair.Key.Name, pair => pair.Value)));
+        logger.PublishInformation(JsonSerializer.Serialize(cloudEvent.GetPopulatedAttributes().ToDictionary(pair => pair.Key.Name, pair => pair.Value), SourceGeneratorContext.Default.DictionaryStringObject));
 
         ISenderLink link = this.session.Value.CreateSender(
             senderName,

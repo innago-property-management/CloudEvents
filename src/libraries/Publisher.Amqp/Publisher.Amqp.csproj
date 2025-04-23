@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <RootNamespace>Innago.Platform.Messaging.Publisher.Amqp</RootNamespace>
@@ -13,6 +13,9 @@
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <IsPackable>True</IsPackable>
         <PackageReadMeFile>README.md</PackageReadMeFile>
+        <IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">true</IsTrimmable>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -38,6 +41,8 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.4" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4"/>
         <PackageReference Include="SonarAnalyzer.CSharp" Version="10.8.0.113526">
             <PrivateAssets>all</PrivateAssets>
