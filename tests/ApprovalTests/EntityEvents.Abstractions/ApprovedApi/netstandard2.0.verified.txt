@@ -1,0 +1,22 @@
+﻿namespace Innago.Platform.Messaging.EntityEvents
+{
+    public static class EntityEventInfoExtensions
+    {
+        public static CloudNative.CloudEvents.CloudEvent ToCloudEvent<T>(this Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T> entityEventInfo) { }
+    }
+    public interface IEntityEventInfo<out T>
+    {
+        T Data { get; }
+        string EntityName { get; }
+        string Id { get; }
+        string Subject { get; }
+        string? TenantId { get; }
+        Innago.Platform.Messaging.EntityEvents.Verb Verb { get; }
+    }
+    public enum Verb
+    {
+        Create = 0,
+        Update = 1,
+        Delete = 2,
+    }
+}
