@@ -1,10 +1,10 @@
 name: auto-pr
 on:
   push:
-    branches:
-      - "**"
     branches-ignore:
       - main
+    tags-ignore:
+      - "*"
 
 jobs:
   pull_request:
