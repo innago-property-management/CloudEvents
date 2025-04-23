@@ -8,5 +8,7 @@
     <Project Path="src\libraries\Publisher.Abstractions\Publisher.Abstractions.csproj" Type="Classic C#" />
     <Project Path="src\libraries\Publisher.Amqp\Publisher.Amqp.csproj" Type="Classic C#" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="tests\ApprovalTests\ApprovalTests.csproj" Type="Classic C#" />
+  </Folder>
 </Solution>

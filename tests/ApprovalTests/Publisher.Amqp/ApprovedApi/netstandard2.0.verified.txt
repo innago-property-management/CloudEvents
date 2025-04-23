@@ -1,0 +1,9 @@
+﻿namespace Innago.Platform.Messaging.Publisher.Amqp
+{
+    public sealed class Publisher : Innago.Platform.Messaging.Publisher.IPublisher, System.IAsyncDisposable
+    {
+        public Publisher(Amqp.IConnection connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher> logger, string addressPrefix = "/exchanges/innago-entity-events", string senderName = "entity-event-publish") { }
+        public System.Threading.Tasks.ValueTask DisposeAsync() { }
+        public System.Threading.Tasks.Task PublishAsync<T>(CloudNative.CloudEvents.CloudEvent cloudEvent) { }
+    }
+}

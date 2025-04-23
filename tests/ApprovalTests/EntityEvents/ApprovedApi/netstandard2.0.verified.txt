@@ -1,0 +1,13 @@
+﻿namespace Innago.Platform.Messaging.EntityEvents
+{
+    public class EntityEventInfo<T> : Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>, System.IEquatable<Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>>
+    {
+        public EntityEventInfo(string Id, Innago.Platform.Messaging.EntityEvents.Verb Verb, string? TenantId = null, T? Data = default) { }
+        public T Data { get; init; }
+        public string EntityName { get; }
+        public string Id { get; init; }
+        public string Subject { get; }
+        public string? TenantId { get; init; }
+        public Innago.Platform.Messaging.EntityEvents.Verb Verb { get; init; }
+    }
+}
