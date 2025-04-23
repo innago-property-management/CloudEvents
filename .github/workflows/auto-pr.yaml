@@ -10,4 +10,4 @@ jobs:
   pull_request:
     uses: innago-property-management/Oui-DELIVER/.github/workflows/auto-pr.yml@main
     secrets:
-      token: ${{ secrets.semverToken }}
+      token: ${{ secrets.SEMVER_TOKEN }}
