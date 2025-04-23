@@ -1,4 +1,5 @@
 ﻿<Solution>
+  <Folder Name="/.github/" />
   <Folder Name="/examples/">
     <Project Path="examples\RabbitPoc\RabbitPoc.csproj" Type="Classic C#" />
   </Folder>
