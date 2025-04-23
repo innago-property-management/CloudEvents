@@ -1,0 +1,9 @@
+name: auto-pr
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  pull_request:
+    uses: innago-property-management/Oui-DELIVER/.github/workflows/auto-pr.yml@main
