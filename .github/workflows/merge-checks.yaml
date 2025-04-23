@@ -1,0 +1,8 @@
+on:
+  pull_request: 
+    branches:
+      - main
+jobs:
+  merge-checks:
+    uses: innago-property-management/Oui-DELIVER/.github/workflows/merge-checks.yml@main
+    
