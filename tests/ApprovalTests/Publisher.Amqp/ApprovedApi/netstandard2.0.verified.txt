@@ -1,8 +1,12 @@
 ﻿namespace Innago.Platform.Messaging.Publisher.Amqp
 {
+    public static class DependencyInjection
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddAmqpCloudEventsPublisher(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, string? sectionName = "publisherAmqp") { }
+    }
     public sealed class Publisher : Innago.Platform.Messaging.Publisher.IPublisher, System.IAsyncDisposable
     {
-        public Publisher(Amqp.IConnection connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher> logger, string addressPrefix = "/exchanges/innago-entity-events", string senderName = "entity-event-publish") { }
+        public Publisher(Amqp.IConnection connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher> logger, string addressPrefix, string senderName) { }
         public System.Threading.Tasks.ValueTask DisposeAsync() { }
         public System.Threading.Tasks.Task PublishAsync<T>(CloudNative.CloudEvents.CloudEvent cloudEvent) { }
     }
