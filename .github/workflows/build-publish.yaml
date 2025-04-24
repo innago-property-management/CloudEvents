@@ -13,4 +13,9 @@ jobs:
     secrets:
       githubToken: ${{ secrets.SEMVER_TOKEN }}
       cosignKey: ${{ secrets.COSIGN_KEY }}
-      cosignPassword: ${ secrets.COSIGN_PASSWORD }}
+      cosignPassword: ${{ secrets.COSIGN_PASSWORD }}
+    permissions:
+      attestations: write
+      packages: write
+      pull-requests: write
+      id-token: write
