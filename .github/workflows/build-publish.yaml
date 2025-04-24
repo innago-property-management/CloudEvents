@@ -20,3 +20,6 @@ jobs:
       pull-requests: write
       id-token: write
       contents: read
+    with:
+      allowed_licenses_path: './.github/actions/check-licenses-action/allowed-licenses.json'
+      ignored_packages_path: './.github/actions/check-licenses-action/ignored-packages.json' 
