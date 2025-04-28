@@ -1,4 +1,5 @@
-﻿namespace Innago.Platform.Messaging.Publisher.Amqp
+﻿[assembly: System.Reflection.AssemblyMetadata("IsTrimmable", "True")]
+namespace Innago.Platform.Messaging.Publisher.Amqp
 {
     public static class DependencyInjection
     {

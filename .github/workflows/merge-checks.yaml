@@ -1,0 +1,11 @@
+on:
+  workflow_dispatch:
+  pull_request: 
+    branches:
+      - main
+    tags-ignore:
+      - "*"
+jobs:
+  merge-checks:
+    if: github.ref != 'refs/heads/main'
+    uses: innago-property-management/Oui-DELIVER/.github/workflows/merge-checks.yml@main
