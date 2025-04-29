@@ -4,5 +4,6 @@ namespace Innago.Platform.Messaging.Publisher
     public interface IPublisher : System.IAsyncDisposable
     {
         System.Threading.Tasks.Task PublishAsync<T>(CloudNative.CloudEvents.CloudEvent cloudEvent);
+        System.Threading.Tasks.Task PublishAsync<T>(Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T> entityEventInfo);
     }
 }

@@ -6,6 +6,8 @@ using CloudNative.CloudEvents;
 using CloudNative.CloudEvents.Amqp;
 using CloudNative.CloudEvents.SystemTextJson;
 
+using EntityEvents;
+
 using global::Amqp;
 using global::Amqp.Framing;
 
@@ -60,5 +62,11 @@ public sealed class Publisher(
         {
             await link.CloseAsync().ConfigureAwait(false);
         }
+    }
+
+    /// <inheritdoc />
+    public Task PublishAsync<T>(IEntityEventInfo<T> entityEventInfo)
+    {
+        return this.PublishAsync<T>(entityEventInfo.ToCloudEvent());
     }
 }
