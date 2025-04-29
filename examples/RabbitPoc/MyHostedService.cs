@@ -2,8 +2,6 @@ namespace RabbitPoc;
 
 using Bogus;
 
-using CloudNative.CloudEvents;
-
 using Innago.Platform.Messaging.EntityEvents;
 using Innago.Platform.Messaging.Publisher;
 
@@ -17,11 +15,11 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            CloudEvent cloudEvent = MakeCloudEvent();
+            IEntityEventInfo<SomeEntity> entityEvent = MakeEntityEvent();
 
-            await publisher.PublishAsync<SomeEntity>(cloudEvent);
+            await publisher.PublishAsync(entityEvent);
 
-            Thread.Sleep(1_000);
+            await Task.Delay(1_000, cancellationToken).ConfigureAwait(false);
         }
     }
 
@@ -30,7 +28,7 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
         return publisher.DisposeAsync().AsTask();
     }
 
-    private static CloudEvent MakeCloudEvent()
+    private static IEntityEventInfo<SomeEntity> MakeEntityEvent()
     {
         var verb = MyHostedService.Faker.PickRandom<Verb>();
         string entityId = MyHostedService.Faker.Random.AlphaNumeric(8);
@@ -39,11 +37,10 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
         var data = new SomeEntity(MyHostedService.Faker.Commerce.Color());
 
         var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data);
-
-        var cloudEvent = info.ToCloudEvent();
-
-        return cloudEvent;
+        
+        return info;
     }
 
+    // ReSharper disable once NotAccessedPositionalProperty.Local
     private record SomeEntity(string Value);
 }
