@@ -19,7 +19,7 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
 
             await publisher.PublishAsync(entityEvent);
 
-            Thread.Sleep(1_000);
+            await Task.Delay(1_000, cancellationToken).ConfigureAwait(false);
         }
     }
 
