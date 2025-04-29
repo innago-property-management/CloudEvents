@@ -10,4 +10,12 @@
         public string? TenantId { get; init; }
         public Innago.Platform.Messaging.EntityEvents.Verb Verb { get; init; }
     }
+    public static class EntityWithIdExtensions
+    {
+        public static Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>> ToCreateEntityEventInfo<TId>(this Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId> entity, string? tenantId = null) { }
+        public static Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>> ToDeleteEntityEventInfo<TId>(this Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId> entity, string? tenantId = null) { }
+        public static Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>> ToEntityEventInfo<TId>(this Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId> entity, Innago.Platform.Messaging.EntityEvents.Verb verb, string? tenantId = null) { }
+        public static Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>> ToPurgeEntityEventInfo<TId>(this Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId> entity, string? tenantId = null) { }
+        public static Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>> ToUpdateEntityEventInfo<TId>(this Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId> entity, string? tenantId = null) { }
+    }
 }
