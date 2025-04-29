@@ -6,6 +6,9 @@ Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.Id.get -> string!
 Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.Subject.get -> string!
 Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.TenantId.get -> string?
 Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.Verb.get -> Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>
+Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>.Id.get -> TId
+Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>.Id.set -> void
 Innago.Platform.Messaging.EntityEvents.Verb
 Innago.Platform.Messaging.EntityEvents.Verb.Create = 0 -> Innago.Platform.Messaging.EntityEvents.Verb
 Innago.Platform.Messaging.EntityEvents.Verb.Delete = 2 -> Innago.Platform.Messaging.EntityEvents.Verb
