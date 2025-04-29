@@ -24,7 +24,7 @@
   &lt;Assembly Path="/Users/christopheranderson/.nuget/packages/amqpnetlite.core/2.4.11/lib/netstandard2.0/Amqp.Net.dll" /&gt;
   &lt;Assembly Path="/Users/christopheranderson/.nuget/packages/microsoft.extensions.logging.abstractions/9.0.4/lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:Int64 x:Key="/Default/Environment/IndexEventsCount/SymbolEventsNotPersistedCount/@EntryValue">1292</s:Int64>
+	<s:Int64 x:Key="/Default/Environment/IndexEventsCount/SymbolEventsNotPersistedCount/@EntryValue">1375</s:Int64>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0d4e7900_002Dde8a_002D46d9_002D81c5_002D03ca6941e906/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="EntityEventsAbstractionsApproval" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

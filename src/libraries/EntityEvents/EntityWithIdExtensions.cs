@@ -24,6 +24,11 @@ public static class EntityWithIdExtensions
         Verb verb,
         string? tenantId = null)
     {
+        if (entity is null)
+        {
+            throw new ArgumentNullException(nameof(entity));
+        }
+
         string id = entity.Id?.ToString() ?? throw new InvalidOperationException("Id is null.");
         return new EntityEventInfo<IEntityWithId<TId>>(id, verb, tenantId, entity);
     }
