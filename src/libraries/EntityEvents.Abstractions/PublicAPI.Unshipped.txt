@@ -9,5 +9,7 @@ Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.Verb.get -> Innago.Pl
 Innago.Platform.Messaging.EntityEvents.Verb
 Innago.Platform.Messaging.EntityEvents.Verb.Create = 0 -> Innago.Platform.Messaging.EntityEvents.Verb
 Innago.Platform.Messaging.EntityEvents.Verb.Delete = 2 -> Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.Verb.None = -1 -> Innago.Platform.Messaging.EntityEvents.Verb
+Innago.Platform.Messaging.EntityEvents.Verb.Purge = 3 -> Innago.Platform.Messaging.EntityEvents.Verb
 Innago.Platform.Messaging.EntityEvents.Verb.Update = 1 -> Innago.Platform.Messaging.EntityEvents.Verb
 static Innago.Platform.Messaging.EntityEvents.EntityEventInfoExtensions.ToCloudEvent<T>(this Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>! entityEventInfo) -> CloudNative.CloudEvents.CloudEvent!

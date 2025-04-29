@@ -6,6 +6,12 @@ namespace Innago.Platform.Messaging.EntityEvents;
 public enum Verb
 {
     /// <summary>
+    /// Represents the absence of a specific action or operation on an entity.
+    /// This verb is used when no particular operation has been performed or when the action is undefined.
+    /// </summary>
+    None = -1,
+
+    /// <summary>
     /// Represents the action of creating a new entity.
     /// This verb is used to indicate that a new entity has been added to the system,
     /// and an associated event has occurred to reflect this operation.
@@ -25,4 +31,10 @@ public enum Verb
     /// from the system, and an associated event reflects the removal operation.
     /// </summary>
     Delete,
+
+    /// <summary>
+    /// Represents a verb indicating the complete removal of an entity and its associated data from the system.
+    /// This action is irreversible and denotes permanent deletion beyond basic deletion operations.
+    /// </summary>
+    Purge
 }
