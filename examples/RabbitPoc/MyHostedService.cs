@@ -4,6 +4,7 @@ using Bogus;
 
 using Innago.Platform.Messaging.EntityEvents;
 using Innago.Platform.Messaging.Publisher;
+using Innago.Shared.TryHelpers;
 
 using Microsoft.Extensions.Hosting;
 
@@ -17,7 +18,7 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
         {
             IEntityEventInfo<SomeEntity> entityEvent = MakeEntityEvent();
 
-            await publisher.PublishAsync(entityEvent);
+            await TryHelpers.TryAsync(() => publisher.PublishAsync(entityEvent)).ConfigureAwait(false);
 
             await Task.Delay(1_000, cancellationToken).ConfigureAwait(false);
         }
