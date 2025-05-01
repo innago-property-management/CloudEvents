@@ -7,5 +7,6 @@
   "Moq.Analyzers",
   "NETStandard.Library",
   "FluentAssertions",
-  "Bogus"
+  "Bogus",
+  "Innago.Shared.TryHelpers"
 ]
