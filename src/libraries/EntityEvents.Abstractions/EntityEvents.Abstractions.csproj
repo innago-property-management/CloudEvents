@@ -27,8 +27,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CloudNative.CloudEvents" Version="2.8.0"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
+        <PackageReference Include="CloudNative.CloudEvents" Version="2.8.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
         <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -37,17 +37,17 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.8.0.113526">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.9.0.115408">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
-        <None Remove="PublicAPI.Unshipped.txt"/>
-        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
-        <None Include="README.md" Pack="true" PackagePath="\"/>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+        <None Remove="PublicAPI.Unshipped.txt" />
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+        <None Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
