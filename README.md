@@ -1,3 +1,7 @@
 # Cloud Events
 
-## AMQP
+## Libraries
+- EntityEvents
+- EntityEvents.Abstractions
+- Publisher.Abstractions
+- Publisher.Amqp
