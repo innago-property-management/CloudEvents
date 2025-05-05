@@ -1,4 +1,5 @@
-﻿namespace Innago.Platform.Messaging.Publisher
+﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/innago-property-management/CloudEvents")]
+namespace Innago.Platform.Messaging.Publisher
 {
     public interface IPublisher : System.IAsyncDisposable
     {

@@ -1,4 +1,5 @@
 ﻿[assembly: System.Reflection.AssemblyMetadata("IsTrimmable", "True")]
+[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/innago-property-management/CloudEvents")]
 namespace Innago.Platform.Messaging.EntityEvents
 {
     public class EntityEventInfo<T> : Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>, System.IEquatable<Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>>
