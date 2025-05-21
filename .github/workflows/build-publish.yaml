@@ -20,4 +20,7 @@ jobs:
       pull-requests: write
       id-token: write
       contents: read
+    with: 
+      argoCdRepoName: "${{ github.repository_owner }}/argocd-shared"
+      imageName: 'innago.platform.messaging.cloudevents.console-example'
     
