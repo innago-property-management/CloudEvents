@@ -28,14 +28,14 @@ builder.ConfigureServices((context, services) =>
     services.AddAmqpCloudEventsPublisher(context.Configuration);
     services.AddHostedService<MyHostedService>();
     services.AddHealthChecks().AddRabbitMQ();
-    
+
     string serviceName = context.Configuration["serviceName"] ?? "RabbitPoc";
     string serviceVersion = context.Configuration["serviceVersion"] ?? "0.0.1";
-    
+
     services.AddOpenTelemetry()
         .ConfigureResource(ConfigureResource(serviceName, serviceVersion))
         .WithTracing(ConfigureTracing(context.Configuration, serviceName))
-        .WithMetrics(ConfigureMetrics(serviceName));
+        .WithMetrics(ConfigureMetrics(context.Configuration, serviceName));
 });
 
 await builder.RunConsoleAsync();
