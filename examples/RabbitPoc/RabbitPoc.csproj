@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <UserSecretsId>65d4f118-a951-4578-a72e-b061b34373f6</UserSecretsId>
-        <AssemblyName>Innago.Platform.Messaging.ClooudEvents.ConsoleExample</AssemblyName>
+        <AssemblyName>Innago.Platform.Messaging.CloudEvents.ConsoleExample</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
