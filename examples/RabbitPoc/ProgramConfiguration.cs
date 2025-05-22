@@ -54,7 +54,11 @@ internal static class ProgramConfiguration
 
             Result<Connection?> result = await TryHelpers.TryAsync(() => amqpLiteConnectionFactory.CreateAsync(address)).ConfigureAwait(false);
 
-            return result.Map(OnSuccess, OnError);
+            HealthCheckResult healthCheckResult = result.Map(OnSuccess, OnError);
+
+            await result.IfSucceededAsync(connection => connection!.CloseAsync()).ConfigureAwait(false);
+
+            return healthCheckResult;
         }
     }
 
@@ -73,7 +77,7 @@ internal static class ProgramConfiguration
             _ => HealthCheckResult.Healthy(),
         };
 
-        TryHelpers.TryAsync(async () => await (connection?.CloseAsync() ?? Task.CompletedTask).ConfigureAwait(false));
+        // TryHelpers.TryAsync(async () => await (connection?.CloseAsync() ?? Task.CompletedTask).ConfigureAwait(false));
 
         return result;
     }
