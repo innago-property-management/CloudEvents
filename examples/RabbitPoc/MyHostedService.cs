@@ -8,6 +8,8 @@ using Innago.Shared.TryHelpers;
 
 using Microsoft.Extensions.Hosting;
 
+using Prometheus;
+
 internal class MyHostedService(IPublisher publisher) : IHostedService
 {
     private static readonly Faker Faker = new();
