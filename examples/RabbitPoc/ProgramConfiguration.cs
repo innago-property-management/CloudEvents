@@ -38,8 +38,8 @@ internal static class ProgramConfiguration
             using TelemetrySpan span = TracerProvider.Default.GetTracer(serviceName).StartSpan(nameof(AmqpCheck));
             IConfiguration configuration = hostBuilderContext.Configuration;
 
-            string? userName = configuration["publisherAmqp:address:user"] ?? "guest";
-            string? password = configuration["publisherAmqp:address:password"] ?? "guest";
+            string userName = configuration["publisherAmqp:address:user"] ?? "guest";
+            string password = configuration["publisherAmqp:address:password"] ?? "guest";
             string? hostName = configuration["publisherAmqp:address:host"];
             string portStr = configuration["publisherAmqp:address:port"] ?? "5672";
             string scheme = configuration["publisherAmqp:address:scheme"] ?? "amqp";
@@ -65,13 +65,17 @@ internal static class ProgramConfiguration
 
     private static HealthCheckResult OnSuccess(Connection? connection)
     {
-        return connection switch
+        HealthCheckResult result = connection switch
         {
             null => HealthCheckResult.Unhealthy(),
             { IsClosed: true } => HealthCheckResult.Unhealthy(),
             { Error: not null } => HealthCheckResult.Unhealthy(),
             _ => HealthCheckResult.Healthy(),
         };
+
+        TryHelpers.TryAsync(async () => await (connection?.CloseAsync() ?? Task.CompletedTask).ConfigureAwait(false));
+
+        return result;
     }
 
     internal static Action<MeterProviderBuilder> ConfigureMetrics(IConfiguration configuration, string serviceName)
