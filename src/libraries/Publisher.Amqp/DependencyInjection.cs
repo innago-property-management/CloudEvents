@@ -47,18 +47,17 @@ public static class DependencyInjection
     {
         services.TryAddSingleton<IConnectionFactory, ConnectionFactory>();
 
-        services.TryAddSingleton<IConnection>(provider =>
+        services.TryAddTransient<IConnection>(provider =>
         {
             var factory = ActivatorUtilities.GetServiceOrCreateInstance<IConnectionFactory>(provider);
-            var lazy = new Lazy<Task<IConnection>>(async () => await factory.CreateAsync(configuration?.Address.ToAddress()).ConfigureAwait(false));
 
-            return lazy.Value.Result;
+            return factory.CreateAsync(configuration?.Address.ToAddress()).GetAwaiter().GetResult();
         });
 
         ObjectFactory<Publisher> factory =
             ActivatorUtilities.CreateFactory<Publisher>([typeof(IConnection), typeof(ILogger<Publisher>), typeof(string), typeof(string)]);
 
-        services.TryAddSingleton<IPublisher>(provider =>
+        services.TryAddTransient<IPublisher>(provider =>
         {
             var connection = ActivatorUtilities.GetServiceOrCreateInstance<IConnection>(provider);
 
