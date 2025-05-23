@@ -6,11 +6,12 @@ using Innago.Platform.Messaging.EntityEvents;
 using Innago.Platform.Messaging.Publisher;
 using Innago.Shared.TryHelpers;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Prometheus;
 
-internal class MyHostedService(IPublisher publisher) : IHostedService
+internal class MyHostedService(IServiceProvider provider) : IHostedService
 {
     private static readonly Faker Faker = new();
 
@@ -20,7 +21,11 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
         {
             IEntityEventInfo<SomeEntity> entityEvent = MakeEntityEvent();
 
-            await TryHelpers.TryAsync(() => publisher.PublishAsync(entityEvent)).ConfigureAwait(false);
+            await TryHelpers.TryAsync(async () =>
+            {
+                await using var publisher = ActivatorUtilities.GetServiceOrCreateInstance<IPublisher>(provider);
+               await publisher.PublishAsync(entityEvent).ConfigureAwait(false);
+            }).ConfigureAwait(false);
 
             await Task.Delay(30_000, cancellationToken).ConfigureAwait(false);
         }
@@ -28,7 +33,7 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        return publisher.DisposeAsync().AsTask();
+        return Task.CompletedTask;
     }
 
     private static IEntityEventInfo<SomeEntity> MakeEntityEvent()
