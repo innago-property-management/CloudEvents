@@ -9,8 +9,6 @@ using Innago.Shared.TryHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Prometheus;
-
 internal class MyHostedService(IServiceProvider provider) : IHostedService
 {
     private static readonly Faker Faker = new();
@@ -24,7 +22,7 @@ internal class MyHostedService(IServiceProvider provider) : IHostedService
             await TryHelpers.TryAsync(async () =>
             {
                 await using var publisher = ActivatorUtilities.GetServiceOrCreateInstance<IPublisher>(provider);
-               await publisher.PublishAsync(entityEvent).ConfigureAwait(false);
+                await publisher.PublishAsync(entityEvent).ConfigureAwait(false);
             }).ConfigureAwait(false);
 
             await Task.Delay(30_000, cancellationToken).ConfigureAwait(false);
@@ -42,13 +40,15 @@ internal class MyHostedService(IServiceProvider provider) : IHostedService
         string entityId = MyHostedService.Faker.Random.AlphaNumeric(8);
         string tenantId = MyHostedService.Faker.Random.AlphaNumeric(8);
 
-        var data = new SomeEntity(MyHostedService.Faker.Commerce.Color());
+        var data = new SomeEntity(
+            MyHostedService.Faker.Commerce.Color(),
+            MyHostedService.Faker.Internet.Email());
 
         var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data);
-        
+
         return info;
     }
 
-    // ReSharper disable once NotAccessedPositionalProperty.Local
-    private record SomeEntity(string Value);
+    // ReSharper disable NotAccessedPositionalProperty.Local
+    private record SomeEntity(string Value, string EmailAddress);
 }

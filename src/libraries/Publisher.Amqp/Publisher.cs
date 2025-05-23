@@ -36,7 +36,7 @@ public sealed class Publisher(
     /// <inheritdoc />
     public async Task PublishAsync<T>(CloudEvent cloudEvent)
     {
-        CloudEventFormatter formatter = new JsonEventFormatter<T>();
+        CloudEventFormatter formatter = new JsonEventFormatter<IEntityEventInfo<T>>();
 
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
 
