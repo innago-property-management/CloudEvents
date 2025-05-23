@@ -45,7 +45,7 @@ public static class DependencyInjection
 
     private static void Configure(IServiceCollection services, AmqpConfiguration? configuration)
     {
-        services.TryAddSingleton<IConnectionFactory, ConnectionFactory>();
+        services.TryAddTransient<IConnectionFactory, ConnectionFactory>();
 
         services.TryAddTransient<IConnection>(provider =>
         {
