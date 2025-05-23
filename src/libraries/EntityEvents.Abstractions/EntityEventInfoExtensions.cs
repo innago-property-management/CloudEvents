@@ -27,7 +27,7 @@ public static class EntityEventInfoExtensions
             Id = Guid.NewGuid().ToString(),
             Source = new Uri(EntityEventInfoExtensions.Source),
             Type = EntityEventInfoExtensions.EventType,
-            Data = entityEventInfo.Data,
+            Data = entityEventInfo,
             Subject = entityEventInfo.Subject,
             Time = DateTimeOffset.UtcNow,
         };
