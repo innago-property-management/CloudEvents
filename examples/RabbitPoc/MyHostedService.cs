@@ -22,7 +22,7 @@ internal class MyHostedService(IServiceProvider provider) : IHostedService
             await TryHelpers.TryAsync(async () =>
             {
                 await using var publisher = ActivatorUtilities.GetServiceOrCreateInstance<IPublisher>(provider);
-                await publisher.PublishAsync(entityEvent).ConfigureAwait(false);
+                await publisher.PublishAsync(entityEvent, SourceGenerationContext.Default).ConfigureAwait(false);
             }).ConfigureAwait(false);
 
             await Task.Delay(30_000, cancellationToken).ConfigureAwait(false);
@@ -49,6 +49,5 @@ internal class MyHostedService(IServiceProvider provider) : IHostedService
         return info;
     }
 
-    // ReSharper disable NotAccessedPositionalProperty.Local
-    private record SomeEntity(string Value, string EmailAddress);
+    internal record SomeEntity(string Value, string EmailAddress);
 }

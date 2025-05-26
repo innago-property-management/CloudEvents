@@ -40,5 +40,11 @@ var data = new SomeEntity();
 var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data);
 
 // IPublisher publisher
-await publisher.PublishAsync(entityEvent).ConfigureAwait(false);
+// the library is trimmed and AOT-compatible
+// you need to pass a serialization context
+await publisher.PublishAsync(entityEvent, SourceGenerationContext.Default).ConfigureAwait(false);
+```
+```c#
+[JsonSerializable(typeof(IEntityEventInfo<SomeEntity>))]
+internal partial class SourceGenerationContext : JsonSerializerContext;
 ```
