@@ -9,7 +9,7 @@ namespace Innago.Platform.Messaging.Publisher.Amqp
     {
         public Publisher(Amqp.IConnection connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher> logger, string addressPrefix, string senderName) { }
         public System.Threading.Tasks.ValueTask DisposeAsync() { }
-        public System.Threading.Tasks.Task PublishAsync<T>(CloudNative.CloudEvents.CloudEvent cloudEvent) { }
-        public System.Threading.Tasks.Task PublishAsync<T>(Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T> entityEventInfo) { }
+        public System.Threading.Tasks.Task PublishAsync<T>(CloudNative.CloudEvents.CloudEvent cloudEvent, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver typeInfoResolver) { }
+        public System.Threading.Tasks.Task PublishAsync<T>(Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T> entityEventInfo, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver typeInfoResolver) { }
     }
 }
