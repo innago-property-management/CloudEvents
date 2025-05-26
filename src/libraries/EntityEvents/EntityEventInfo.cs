@@ -30,4 +30,7 @@ public record EntityEventInfo<T>(string Id, Verb Verb, string? TenantId = null, 
 
     /// <inheritdoc />
     public DateTimeOffset Timestamp => DateTimeOffset.UtcNow;
+
+    /// <inheritdoc />
+    public Guid TracingId => Guid.NewGuid();
 }

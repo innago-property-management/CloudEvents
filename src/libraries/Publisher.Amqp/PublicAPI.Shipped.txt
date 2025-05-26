@@ -1,1 +1,8 @@
 #nullable enable
+Innago.Platform.Messaging.Publisher.Amqp.DependencyInjection
+Innago.Platform.Messaging.Publisher.Amqp.Publisher
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.DisposeAsync() -> System.Threading.Tasks.ValueTask
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.PublishAsync<T>(CloudNative.CloudEvents.CloudEvent! cloudEvent, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver! typeInfoResolver) -> System.Threading.Tasks.Task!
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.PublishAsync<T>(Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>! entityEventInfo, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver! typeInfoResolver) -> System.Threading.Tasks.Task!
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.Publisher(Amqp.IConnection! connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher!>! logger, string! addressPrefix, string! senderName) -> void
+static Innago.Platform.Messaging.Publisher.Amqp.DependencyInjection.AddAmqpCloudEventsPublisher(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, Microsoft.Extensions.Configuration.IConfiguration! configuration, string? sectionName = "publisherAmqp") -> Microsoft.Extensions.DependencyInjection.IServiceCollection!

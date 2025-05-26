@@ -54,4 +54,10 @@ public interface IEntityEventInfo<out T>
     /// Represents the date and time of the specific event instance.
     /// </summary>
     DateTimeOffset Timestamp { get; }
+
+    /// <summary>
+    /// Gets the tracing identifier associated with the event.
+    /// This identifier is used for tracking and correlating events across distributed systems or processes.
+    /// </summary>
+    Guid TracingId { get; }
 }
