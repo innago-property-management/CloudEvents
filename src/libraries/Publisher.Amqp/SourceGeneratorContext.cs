@@ -2,7 +2,7 @@ namespace Innago.Platform.Messaging.Publisher.Amqp;
 
 using System.Text.Json.Serialization;
 
-[JsonSourceGenerationOptions(UseStringEnumConverter = true, PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(Dictionary<string, object>))]
 [JsonSerializable(typeof(Uri))]
 [JsonSerializable(typeof(DateTimeOffset))]
