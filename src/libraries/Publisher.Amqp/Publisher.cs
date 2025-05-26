@@ -1,6 +1,8 @@
 namespace Innago.Platform.Messaging.Publisher.Amqp;
 
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 using CloudNative.CloudEvents;
 using CloudNative.CloudEvents.Amqp;
@@ -34,13 +36,28 @@ public sealed class Publisher(
     }
 
     /// <inheritdoc />
-    public async Task PublishAsync<T>(CloudEvent cloudEvent)
+    public async Task PublishAsync<T>(CloudEvent cloudEvent, IJsonTypeInfoResolver typeInfoResolver)
     {
-        CloudEventFormatter formatter = new JsonEventFormatter<IEntityEventInfo<T>>();
+        IJsonTypeInfoResolver combinedResolver = JsonTypeInfoResolver.Combine(
+            SourceGeneratorContext.Default,
+            typeInfoResolver);
+
+        JsonSerializerOptions options = new()
+        {
+            TypeInfoResolver = combinedResolver,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Converters =
+            {
+                new JsonStringEnumConverter(),
+            },
+        };
+        
+        CloudEventFormatter formatter = new JsonEventFormatter<IEntityEventInfo<T>>(options, new JsonDocumentOptions());
 
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
 
-        logger.PublishInformation(JsonSerializer.Serialize(cloudEvent.GetPopulatedAttributes().ToDictionary(pair => pair.Key.Name, pair => pair.Value), SourceGeneratorContext.Default.DictionaryStringObject));
+        logger.PublishInformation(JsonSerializer.Serialize(cloudEvent.GetPopulatedAttributes().ToDictionary(pair => pair.Key.Name, pair => pair.Value),
+            SourceGeneratorContext.Default.DictionaryStringObject));
 
         ISenderLink link = this.session.Value.CreateSender(
             senderName,
@@ -65,8 +82,8 @@ public sealed class Publisher(
     }
 
     /// <inheritdoc />
-    public Task PublishAsync<T>(IEntityEventInfo<T> entityEventInfo)
+    public Task PublishAsync<T>(IEntityEventInfo<T> entityEventInfo, IJsonTypeInfoResolver typeInfoResolver)
     {
-        return this.PublishAsync<T>(entityEventInfo.ToCloudEvent());
+        return this.PublishAsync<T>(entityEventInfo.ToCloudEvent(), typeInfoResolver);
     }
 }

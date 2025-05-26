@@ -18,6 +18,7 @@
         <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
         <RepositoryUrl>https://github.com/innago-property-management/CloudEvents</RepositoryUrl>
         <PackageProjectUrl>https://github.com/innago-property-management/CloudEvents/tree/main/src/libraries/EntityEvents.Abstractions</PackageProjectUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -43,6 +44,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="System.Text.Json" Version="9.0.5" />
     </ItemGroup>
 
     <ItemGroup>
