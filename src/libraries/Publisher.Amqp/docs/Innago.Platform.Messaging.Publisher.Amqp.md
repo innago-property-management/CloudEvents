@@ -4,6 +4,7 @@
 
 | public type | description |
 | --- | --- |
+| class [AmqpConfiguration](./Innago.Platform.Messaging.Publisher.Amqp/AmqpConfiguration.md) |  |
 | static class [DependencyInjection](./Innago.Platform.Messaging.Publisher.Amqp/DependencyInjection.md) |  |
 | class [Publisher](./Innago.Platform.Messaging.Publisher.Amqp/Publisher.md) |  |
 

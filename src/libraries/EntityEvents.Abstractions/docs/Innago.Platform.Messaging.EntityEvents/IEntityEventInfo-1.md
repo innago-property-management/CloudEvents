@@ -13,6 +13,8 @@ public interface IEntityEventInfo<out T>
 | [Id](IEntityEventInfo-1/Id.md) { get; } |  |
 | [Subject](IEntityEventInfo-1/Subject.md) { get; } |  |
 | [TenantId](IEntityEventInfo-1/TenantId.md) { get; } |  |
+| [Timestamp](IEntityEventInfo-1/Timestamp.md) { get; } |  |
+| [TracingId](IEntityEventInfo-1/TracingId.md) { get; } |  |
 | [Verb](IEntityEventInfo-1/Verb.md) { get; } |  |
 
 ## See Also

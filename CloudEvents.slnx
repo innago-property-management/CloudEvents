@@ -11,5 +11,6 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests\ApprovalTests\ApprovalTests.csproj" Type="Classic C#" />
+    <Project Path="tests\UnitTests\UnitTests.csproj" Type="Classic C#" />
   </Folder>
 </Solution>

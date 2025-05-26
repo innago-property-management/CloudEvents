@@ -29,6 +29,9 @@ public sealed class Publisher(
 {
     private readonly Lazy<ISession> session = new(connection.CreateSession);
 
+    internal string AddressPrefix => addressPrefix;
+    internal string SenderName => senderName;
+
     /// <inheritdoc />
     public ValueTask DisposeAsync()
     {
@@ -60,10 +63,10 @@ public sealed class Publisher(
             SourceGeneratorContext.Default.DictionaryStringObject));
 
         ISenderLink link = this.session.Value.CreateSender(
-            senderName,
+            this.SenderName,
             new Target
             {
-                Address = $"{addressPrefix}/{cloudEvent.Subject}",
+                Address = $"{this.AddressPrefix}/{cloudEvent.Subject}",
                 Durable = 1,
             });
 

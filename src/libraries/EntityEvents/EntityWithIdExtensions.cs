@@ -18,13 +18,13 @@ public static class EntityWithIdExtensions
     /// <param name="verb">The action verb that represents the type of event (e.g., Create, Update, Delete).</param>
     /// <param name="tenantId">The tenant identifier associated with the entity, if applicable.</param>
     /// <returns>An instance of IEntityEventInfo encapsulating the given entity, the specified action verb, and tenant details.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when the entity's Id is null.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when the entity's ID is null.</exception>
     public static IEntityEventInfo<IEntityWithId<TId>> ToEntityEventInfo<TId>(
         this IEntityWithId<TId> entity,
         Verb verb,
         string? tenantId = null)
     {
-        if (entity is null)
+        if (entity == null)
         {
             throw new ArgumentNullException(nameof(entity));
         }

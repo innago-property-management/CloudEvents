@@ -10,7 +10,7 @@ public sealed class Publisher : IPublisher
 | --- | --- |
 | [Publisher](Publisher/Publisher.md)(…) |  |
 | [DisposeAsync](Publisher/DisposeAsync.md)() |  |
-| [PublishAsync&lt;T&gt;](Publisher/PublishAsync.md)(…) |  |
+| [PublishAsync&lt;T&gt;](Publisher/PublishAsync.md)(…) |  (2 methods) |
 
 ## See Also
 

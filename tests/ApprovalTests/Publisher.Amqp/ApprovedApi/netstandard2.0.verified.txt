@@ -1,6 +1,26 @@
 ﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/innago-property-management/CloudEvents")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTests")]
 namespace Innago.Platform.Messaging.Publisher.Amqp
 {
+    public class AmqpConfiguration
+    {
+        public AmqpConfiguration() { }
+        public Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo Address { get; set; }
+        public string? ExchangeName { get; set; }
+        public string? SenderName { get; set; }
+        public struct AddressInfo : System.IEquatable<Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo>
+        {
+            public AddressInfo(string Host, int Port, string? User = null, string? Password = null, string Path = "/", string Scheme = "AMQPS") { }
+            public string Host { get; set; }
+            public string? Password { get; set; }
+            public string Path { get; set; }
+            public int Port { get; set; }
+            public string Scheme { get; set; }
+            public string? User { get; set; }
+            public Amqp.Address ToAddress() { }
+        }
+    }
     public static class DependencyInjection
     {
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddAmqpCloudEventsPublisher(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, string? sectionName = "publisherAmqp") { }
