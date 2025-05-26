@@ -8,6 +8,7 @@ Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Id.init -> void
 Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Subject.get -> string!
 Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.TenantId.get -> string?
 Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.TenantId.init -> void
+Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Timestamp.get -> System.DateTimeOffset
 Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Verb.get -> Innago.Platform.Messaging.EntityEvents.Verb
 Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>.Verb.init -> void
 Innago.Platform.Messaging.EntityEvents.EntityWithIdExtensions

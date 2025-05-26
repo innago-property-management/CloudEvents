@@ -9,6 +9,7 @@ namespace Innago.Platform.Messaging.EntityEvents
         public string Id { get; init; }
         public string Subject { get; }
         public string? TenantId { get; init; }
+        public System.DateTimeOffset Timestamp { get; }
         public Innago.Platform.Messaging.EntityEvents.Verb Verb { get; init; }
     }
     public static class EntityWithIdExtensions
