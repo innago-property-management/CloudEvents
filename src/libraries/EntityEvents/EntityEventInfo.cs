@@ -27,4 +27,10 @@ public record EntityEventInfo<T>(string Id, Verb Verb, string? TenantId = null, 
     /// of the entity involved in the event.
     /// </summary>
     public string EntityName => $"{typeof(T).FullName}";
+
+    /// <inheritdoc />
+    public DateTimeOffset Timestamp => DateTimeOffset.UtcNow;
+
+    /// <inheritdoc />
+    public Guid TracingId => Guid.NewGuid();
 }

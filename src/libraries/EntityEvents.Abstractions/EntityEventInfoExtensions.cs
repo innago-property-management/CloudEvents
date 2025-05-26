@@ -24,18 +24,20 @@ public static class EntityEventInfoExtensions
     {
         CloudEvent cloudEvent = new()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = entityEventInfo.TracingId.ToString("N"),
             Source = new Uri(EntityEventInfoExtensions.Source),
             Type = EntityEventInfoExtensions.EventType,
             Data = entityEventInfo,
             Subject = entityEventInfo.Subject,
-            Time = DateTimeOffset.UtcNow,
+            Time = entityEventInfo.Timestamp,
         };
 
         cloudEvent.SetAttributeFromString("entityname", entityEventInfo.EntityName);
         cloudEvent.SetAttributeFromString("entityid", entityEventInfo.Id);
         cloudEvent.SetAttributeFromString("tenantid", entityEventInfo.TenantId ?? string.Empty);
         cloudEvent.SetAttributeFromString("entityaction", $"{entityEventInfo.Verb}");
+        cloudEvent.SetAttributeFromString("timestamp", entityEventInfo.Timestamp.ToString("O"));
+        cloudEvent.SetAttributeFromString("tracingid", entityEventInfo.TracingId.ToString("N"));
 
         return cloudEvent;
     }

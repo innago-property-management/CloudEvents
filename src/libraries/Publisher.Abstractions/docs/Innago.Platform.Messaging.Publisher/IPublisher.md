@@ -8,7 +8,7 @@ public interface IPublisher : IAsyncDisposable
 
 | name | description |
 | --- | --- |
-| [PublishAsync&lt;T&gt;](IPublisher/PublishAsync.md)(…) |  |
+| [PublishAsync&lt;T&gt;](IPublisher/PublishAsync.md)(…) |  (2 methods) |
 
 ## See Also
 

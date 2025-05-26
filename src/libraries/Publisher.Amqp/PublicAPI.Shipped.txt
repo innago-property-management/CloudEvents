@@ -1,1 +1,39 @@
 #nullable enable
+Innago.Platform.Messaging.Publisher.Amqp.DependencyInjection
+Innago.Platform.Messaging.Publisher.Amqp.Publisher
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.DisposeAsync() -> System.Threading.Tasks.ValueTask
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.PublishAsync<T>(CloudNative.CloudEvents.CloudEvent! cloudEvent, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver! typeInfoResolver) -> System.Threading.Tasks.Task!
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.PublishAsync<T>(Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>! entityEventInfo, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver! typeInfoResolver) -> System.Threading.Tasks.Task!
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.Publisher(Amqp.IConnection! connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher!>! logger, string! addressPrefix, string! senderName) -> void
+static Innago.Platform.Messaging.Publisher.Amqp.DependencyInjection.AddAmqpCloudEventsPublisher(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, Microsoft.Extensions.Configuration.IConfiguration! configuration, string? sectionName = "publisherAmqp") -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AmqpConfiguration() -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.Address.get -> Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.Address.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.AddressInfo() -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.AddressInfo(string! Host, int Port, string? User = null, string? Password = null, string! Path = "/", string! Scheme = "AMQPS") -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Host.get -> string!
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Host.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Password.get -> string?
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Password.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Path.get -> string!
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Path.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Port.get -> int
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Port.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Scheme.get -> string!
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Scheme.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.ToAddress() -> Amqp.Address!
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.User.get -> string?
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.User.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.ExchangeName.get -> string?
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.ExchangeName.set -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.SenderName.get -> string?
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.SenderName.set -> void
+override Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.GetHashCode() -> int
+~override Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.ToString() -> string
+static Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.operator ==(Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo left, Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo right) -> bool
+static Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.operator !=(Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo left, Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo right) -> bool
+~override Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Equals(object obj) -> bool
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Equals(Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo other) -> bool
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Deconstruct(out string! Host, out int Port, out string? User, out string? Password, out string! Path, out string! Scheme) -> void

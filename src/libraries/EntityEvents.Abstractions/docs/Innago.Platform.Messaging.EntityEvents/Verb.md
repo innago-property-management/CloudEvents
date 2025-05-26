@@ -8,9 +8,11 @@ public enum Verb
 
 | name | value | description |
 | --- | --- | --- |
+| None | `-1` |  |
 | Create | `0` |  |
 | Update | `1` |  |
 | Delete | `2` |  |
+| Purge | `3` |  |
 
 ## See Also
 

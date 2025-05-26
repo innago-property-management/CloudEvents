@@ -1,7 +1,21 @@
-# IPublisher.PublishAsync&lt;T&gt; method
+# IPublisher.PublishAsync&lt;T&gt; method (1 of 2)
 
 ```csharp
-public Task PublishAsync<T>(CloudEvent cloudEvent)
+public Task PublishAsync<T>(CloudEvent cloudEvent, IJsonTypeInfoResolver typeInfoResolver)
+```
+
+## See Also
+
+* interface [IPublisher](../IPublisher.md)
+* namespace [Innago.Platform.Messaging.Publisher](../../Innago.Platform.Messaging.Publisher.Abstractions.md)
+
+---
+
+# IPublisher.PublishAsync&lt;T&gt; method (2 of 2)
+
+```csharp
+public Task PublishAsync<T>(IEntityEventInfo<T> entityEventInfo, 
+    IJsonTypeInfoResolver typeInfoResolver)
 ```
 
 ## See Also

@@ -1,1 +1,4 @@
 #nullable enable
+Innago.Platform.Messaging.Publisher.IPublisher
+Innago.Platform.Messaging.Publisher.IPublisher.PublishAsync<T>(CloudNative.CloudEvents.CloudEvent! cloudEvent, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver! typeInfoResolver) -> System.Threading.Tasks.Task!
+Innago.Platform.Messaging.Publisher.IPublisher.PublishAsync<T>(Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>! entityEventInfo, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver! typeInfoResolver) -> System.Threading.Tasks.Task!

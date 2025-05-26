@@ -7,7 +7,7 @@ using global::Amqp;
 /// This class is used to define essential details required to establish
 /// and configure an AMQP connection and communication.
 /// </summary>
-internal class AmqpConfiguration
+public class AmqpConfiguration
 {
     /// <summary>
     /// Gets the AMQP server address configuration used for establishing the connection.
@@ -30,8 +30,19 @@ internal class AmqpConfiguration
     /// </summary>
     public string? SenderName { get; set; }
 
+    /// <summary>
+    /// Represents connection details required to establish communication
+    /// with a server or broker, including host, port, credentials, and scheme.
+    /// </summary>
     public record struct AddressInfo(string Host, int Port, string? User = null, string? Password = null, string Path = "/", string Scheme = "AMQPS")
     {
+        /// <summary>
+        /// Converts the AddressInfo structure into an AMQP Address object.
+        /// </summary>
+        /// <returns>
+        /// An instance of the AMQP Address class that encapsulates the configuration details
+        /// such as host, port, user credentials, path, and scheme for establishing a connection.
+        /// </returns>
         public Address ToAddress()
         {
             return new Address(this.Host, this.Port, this.User, this.Password, this.Path, this.Scheme);
