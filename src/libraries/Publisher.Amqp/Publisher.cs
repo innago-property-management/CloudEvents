@@ -13,6 +13,7 @@ using EntityEvents;
 
 using global::Amqp;
 using global::Amqp.Framing;
+using global::Amqp.Types;
 
 using Innago.Platform.Messaging.Publisher;
 
@@ -72,17 +73,20 @@ public sealed class Publisher(
             },
             OnAttached);
 
+        Error? error = null;
+
         try
         {
             await link.SendAsync(message).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
+            error = new Error(new Symbol("Error")) { Description = ex.Message };
             logger.Error(ex.GetType().Name, ex.Message);
         }
         finally
         {
-            await link.CloseAsync().ConfigureAwait(false);
+            await link.CloseAsync(TimeSpan.FromSeconds(1), error).ConfigureAwait(false);
         }
 
         return;
@@ -106,7 +110,7 @@ public sealed class Publisher(
                     activity.SetTag("amqp.error.condition", error.Condition);
                     activity.SetTag("amqp.error.description", error.Description);
                 }
-                
+
                 activity?.Dispose();
             }
         }

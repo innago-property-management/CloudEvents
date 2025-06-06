@@ -5,11 +5,14 @@ using System.Text.Json.Serialization.Metadata;
 
 using AutoFixture;
 
+using CloudNative.CloudEvents;
+
 using FluentAssertions;
 using FluentAssertions.Execution;
 
 using global::Amqp;
 using global::Amqp.Framing;
+using global::Amqp.Types;
 
 using Innago.Platform.Messaging.EntityEvents;
 using Innago.Platform.Messaging.Publisher.Amqp;
@@ -31,6 +34,31 @@ public class PublisherTests(ITestOutputHelper outputHelper)
     private static readonly Fixture Fixture = new();
 
     [Fact]
+    public async Task DisposeAsync_CompletesSuccessfully()
+    {
+        var mockSenderLink = new Mock<ISenderLink>(MockBehavior.Strict);
+        mockSenderLink.Setup(link => link.CloseAsync()).Returns(Task.CompletedTask);
+
+        var mockSession = new Mock<ISession>(MockBehavior.Strict);
+        mockSession.Setup(sess => sess.CloseAsync()).Returns(Task.CompletedTask);
+
+        var mockConnection = new Mock<IConnection>(MockBehavior.Strict);
+        mockConnection.Setup(conn => conn.CreateSession()).Returns(mockSession.Object);
+
+        ILogger<Publisher> logger = MakeLogger();
+
+        var publisher = new Publisher(
+            mockConnection.Object,
+            logger,
+            "/prefix",
+            "sender");
+
+        Exception? ex = await Record.ExceptionAsync(() => publisher.DisposeAsync().AsTask());
+        ex.Should().BeNull();
+        mockSession.Verify(session => session.CloseAsync(), Times.Once);
+    }
+
+    [Fact]
     public async Task PublishAsyncShould()
     {
         const string addressPrefix = "/exchanges/test-events";
@@ -39,7 +67,7 @@ public class PublisherTests(ITestOutputHelper outputHelper)
         ISenderLink senderLink = SetupMockSenderLink();
         ISession session = CreateMockSession(senderLink);
         IConnection connection = CreateMockConnection(session);
-        ILogger<Publisher> logger = SetupPublisherLogger();
+        ILogger<Publisher> logger = MakeLogger();
 
         Activity? capturedActivity = null;
 
@@ -125,38 +153,59 @@ public class PublisherTests(ITestOutputHelper outputHelper)
         return host;
     }
 
-    private static IConnection CreateMockConnection(ISession sess)
+    private static IConnection CreateMockConnection(ISession session)
     {
         return Mock.Of<IConnection>(
-            connection => connection.CreateSession() == sess,
+            connection => connection.CreateSession() == session,
             MockBehavior.Strict);
     }
 
-    private static ISession CreateMockSession(ISenderLink senderLink)
+    private static ISession CreateMockSession(IAmqpObject senderLink)
     {
         return Mock.Of<ISession>(session =>
                 session.CreateSender(It.IsAny<string>(), It.IsAny<Target>(), It.IsAny<OnAttached>()) == senderLink,
             MockBehavior.Strict);
     }
 
-    private static ISenderLink SetupMockSenderLink()
+    private static ILogger<Publisher> MakeLogger()
+    {
+        var mock = new Mock<ILogger<Publisher>>(MockBehavior.Strict);
+
+        mock.Setup(logger => logger.Log(
+            It.IsAny<LogLevel>(),
+            It.IsAny<EventId>(),
+            It.IsAny<It.IsAnyType>(),
+            It.IsAny<Exception?>(),
+            It.IsAny<Func<It.IsAnyType, Exception?, string>>()));
+
+        mock.Setup(logger => logger.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
+
+        return mock.Object;
+    }
+
+    private static ISenderLink SetupMockSenderLink(bool shouldThrow = false)
     {
         var mockSenderLink = new Mock<ISenderLink>(MockBehavior.Strict);
 
         mockSenderLink.Setup(link =>
                 link.SendAsync(It.IsAny<Message>()))
+            .Callback(() =>
+            {
+                if (!shouldThrow)
+                {
+                    return;
+                }
+
+                var error = new Error(new Symbol("error")) { Condition = "amqp:internal-error", Description = "Simulated error" };
+                mockSenderLink.Object.CloseAsync(TimeSpan.Zero, error).GetAwaiter().GetResult();
+            })
             .Returns(Task.CompletedTask);
 
-        mockSenderLink.Setup(link => link.CloseAsync())
+        mockSenderLink.Setup(link => link.CloseAsync(It.IsAny<TimeSpan>(), It.IsAny<Error>()))
             .Returns(Task.CompletedTask);
 
         mockSenderLink.Setup(link => link.AddClosedCallback(It.IsAny<ClosedCallback>()));
 
         return mockSenderLink.Object;
-    }
-
-    private static ILogger<Publisher> SetupPublisherLogger()
-    {
-        return Mock.Of<ILogger<Publisher>>(MockBehavior.Loose);
     }
 }
