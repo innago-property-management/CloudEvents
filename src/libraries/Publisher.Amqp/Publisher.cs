@@ -1,5 +1,6 @@
 namespace Innago.Platform.Messaging.Publisher.Amqp;
 
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -68,7 +69,7 @@ public sealed class Publisher(
             {
                 Address = $"{this.AddressPrefix}/{cloudEvent.Subject}",
                 Durable = 1,
-            });
+            }, OnAttached);
 
         try
         {
@@ -81,6 +82,25 @@ public sealed class Publisher(
         finally
         {
             await link.CloseAsync().ConfigureAwait(false);
+        }
+
+        return;
+
+        void OnAttached(ILink lnk, Attach attach)
+        {
+            Activity? activity = PublisherTracer.Source.StartActivity();
+            activity?.SetTag("cloudEvent.Id", cloudEvent.Id);
+            activity?.SetTag("cloudEvent.Subject", cloudEvent.Subject);
+            activity?.SetTag("cloudEvent.Source", cloudEvent.Source);
+            activity?.SetTag("cloudEvent.Type", cloudEvent.Type);
+            activity?.SetTag("cloudEvent.Time", cloudEvent.Time);
+
+            lnk.AddClosedCallback(OnClosed);
+
+            void OnClosed(IAmqpObject sender, Error error)
+            {
+                activity?.Dispose();
+            }
         }
     }
 

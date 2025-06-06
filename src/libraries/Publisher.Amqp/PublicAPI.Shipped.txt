@@ -37,3 +37,5 @@ static Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.op
 ~override Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Equals(object obj) -> bool
 Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Equals(Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo other) -> bool
 Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Deconstruct(out string! Host, out int Port, out string? User, out string? Password, out string! Path, out string! Scheme) -> void
+Innago.Platform.Messaging.Publisher.Amqp.PublisherTracer
+static readonly Innago.Platform.Messaging.Publisher.Amqp.PublisherTracer.Source -> System.Diagnostics.ActivitySource!

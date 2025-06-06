@@ -5,7 +5,10 @@ using Innago.Shared.HealthChecks.TcpHealthProbe;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+
+using OpenTelemetry.Trace;
 
 using Prometheus;
 
@@ -43,6 +46,8 @@ builder.ConfigureServices((context, services) =>
         .ConfigureResource(ConfigureResource(serviceName, serviceVersion))
         .WithTracing(ConfigureTracing(context.Configuration, serviceName))
         .WithMetrics(ConfigureMetrics(context.Configuration, serviceName));
+
+    services.TryAddTransient(_ => TracerProvider.Default.GetTracer(serviceName));
 
     pusher = new Lazy<MetricPusher>(() => ProgramConfiguration.MetricPusher(serviceName, context.Configuration));
 });

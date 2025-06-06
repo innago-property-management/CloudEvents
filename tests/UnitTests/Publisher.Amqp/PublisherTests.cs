@@ -48,6 +48,6 @@ public class PublisherTests
         Mock.Get(sess)
             .Verify(session => 
                 session.CreateSender(senderName, 
-                    It.Is<Target>(target => target.Durable == 1 && target.Address == $"{addressPrefix}/{info.Subject}"), null));
+                    It.Is<Target>(target => target.Durable == 1 && target.Address == $"{addressPrefix}/{info.Subject}"), It.IsAny<OnAttached>()));
     }
 }
