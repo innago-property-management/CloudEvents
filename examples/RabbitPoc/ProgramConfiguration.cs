@@ -4,6 +4,7 @@ using System.Net;
 
 using Amqp;
 
+using Innago.Platform.Messaging.Publisher.Amqp;
 using Innago.Shared.TryHelpers;
 
 using Microsoft.Extensions.Configuration;
@@ -112,6 +113,7 @@ internal static class ProgramConfiguration
         void Configure(TracerProviderBuilder tracerProviderBuilder)
         {
             tracerProviderBuilder.AddSource(serviceName);
+            tracerProviderBuilder.AddSource(PublisherTracer.Source.Name);
 
             tracerProviderBuilder.AddOtlpExporter(ConfigureOtlpExporter(configuration));
 

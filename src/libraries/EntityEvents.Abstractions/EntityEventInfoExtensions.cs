@@ -10,8 +10,8 @@ using CloudNative.CloudEvents;
 /// </summary>
 public static class EntityEventInfoExtensions
 {
-    private const string EventType = "innago:entity-event";
-    private static readonly string Source = $"urn:innago:{Assembly.GetExecutingAssembly().GetName().Name}";
+    internal const string EventType = "innago:entity-event";
+    internal static readonly string Source = $"urn:innago:{Assembly.GetExecutingAssembly().GetName().Name}";
 
     /// <summary>
     /// Converts an <see cref="IEntityEventInfo{T}"/> into a <see cref="CloudEvent"/> for standardized

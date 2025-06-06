@@ -1,5 +1,6 @@
 namespace Innago.Platform.Messaging.Publisher.Amqp;
 
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -12,6 +13,7 @@ using EntityEvents;
 
 using global::Amqp;
 using global::Amqp.Framing;
+using global::Amqp.Types;
 
 using Innago.Platform.Messaging.Publisher;
 
@@ -54,7 +56,7 @@ public sealed class Publisher(
                 new JsonStringEnumConverter(),
             },
         };
-        
+
         CloudEventFormatter formatter = new JsonEventFormatter<IEntityEventInfo<T>>(options, new JsonDocumentOptions());
 
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
@@ -68,7 +70,10 @@ public sealed class Publisher(
             {
                 Address = $"{this.AddressPrefix}/{cloudEvent.Subject}",
                 Durable = 1,
-            });
+            },
+            OnAttached);
+
+        Error? error = null;
 
         try
         {
@@ -76,11 +81,38 @@ public sealed class Publisher(
         }
         catch (Exception ex)
         {
+            error = new Error(new Symbol("Error")) { Description = ex.Message };
             logger.Error(ex.GetType().Name, ex.Message);
         }
         finally
         {
-            await link.CloseAsync().ConfigureAwait(false);
+            await link.CloseAsync(TimeSpan.FromSeconds(1), error).ConfigureAwait(false);
+        }
+
+        return;
+
+        void OnAttached(ILink lnk, Attach attach)
+        {
+            Activity? activity = PublisherTracer.Source.StartActivity(ActivityKind.Producer);
+            activity?.SetTag("cloudEvent.Id", cloudEvent.Id);
+            activity?.SetTag("cloudEvent.Subject", cloudEvent.Subject);
+            activity?.SetTag("cloudEvent.Source", cloudEvent.Source?.AbsoluteUri);
+            activity?.SetTag("cloudEvent.Type", cloudEvent.Type);
+            activity?.SetTag("cloudEvent.Time", cloudEvent.Time?.ToString("O"));
+
+            lnk.AddClosedCallback(OnClosed);
+
+            void OnClosed(IAmqpObject sender, Error error)
+            {
+                if (activity != null && error != null!)
+                {
+                    activity.SetStatus(ActivityStatusCode.Error, error.Description);
+                    activity.SetTag("amqp.error.condition", error.Condition);
+                    activity.SetTag("amqp.error.description", error.Description);
+                }
+
+                activity?.Dispose();
+            }
         }
     }
 
