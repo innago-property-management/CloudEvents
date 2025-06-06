@@ -55,7 +55,7 @@ public sealed class Publisher(
                 new JsonStringEnumConverter(),
             },
         };
-        
+
         CloudEventFormatter formatter = new JsonEventFormatter<IEntityEventInfo<T>>(options, new JsonDocumentOptions());
 
         Message message = cloudEvent.ToAmqpMessage(ContentMode.Binary, formatter);
@@ -69,7 +69,8 @@ public sealed class Publisher(
             {
                 Address = $"{this.AddressPrefix}/{cloudEvent.Subject}",
                 Durable = 1,
-            }, OnAttached);
+            },
+            OnAttached);
 
         try
         {
@@ -88,17 +89,24 @@ public sealed class Publisher(
 
         void OnAttached(ILink lnk, Attach attach)
         {
-            Activity? activity = PublisherTracer.Source.StartActivity();
+            Activity? activity = PublisherTracer.Source.StartActivity(ActivityKind.Producer);
             activity?.SetTag("cloudEvent.Id", cloudEvent.Id);
             activity?.SetTag("cloudEvent.Subject", cloudEvent.Subject);
-            activity?.SetTag("cloudEvent.Source", cloudEvent.Source);
+            activity?.SetTag("cloudEvent.Source", cloudEvent.Source?.AbsoluteUri);
             activity?.SetTag("cloudEvent.Type", cloudEvent.Type);
-            activity?.SetTag("cloudEvent.Time", cloudEvent.Time);
+            activity?.SetTag("cloudEvent.Time", cloudEvent.Time?.ToString("O"));
 
             lnk.AddClosedCallback(OnClosed);
 
             void OnClosed(IAmqpObject sender, Error error)
             {
+                if (activity != null && error != null!)
+                {
+                    activity.SetStatus(ActivityStatusCode.Error, error.Description);
+                    activity.SetTag("amqp.error.condition", error.Condition);
+                    activity.SetTag("amqp.error.description", error.Description);
+                }
+                
                 activity?.Dispose();
             }
         }
