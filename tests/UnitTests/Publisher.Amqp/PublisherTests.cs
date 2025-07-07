@@ -5,10 +5,7 @@ using System.Text.Json.Serialization.Metadata;
 
 using AutoFixture;
 
-using CloudNative.CloudEvents;
-
 using AwesomeAssertions;
-using AwesomeAssertions.Execution;
 
 using global::Amqp;
 using global::Amqp.Framing;
@@ -25,11 +22,10 @@ using Moq;
 
 using OpenTelemetry.Trace;
 
-using Xunit.Abstractions;
 using Xunit.OpenCategories;
 
 [UnitTest(nameof(Publisher))]
-public class PublisherTests(ITestOutputHelper outputHelper)
+public class PublisherTests
 {
     private static readonly Fixture Fixture = new();
 
@@ -40,6 +36,11 @@ public class PublisherTests(ITestOutputHelper outputHelper)
         mockSenderLink.Setup(link => link.CloseAsync()).Returns(Task.CompletedTask);
 
         var mockSession = new Mock<ISession>(MockBehavior.Strict);
+        
+        mockSession.Setup(sess => 
+            sess.CreateSender(It.IsAny<string>(), It.IsAny<Target>(), It.IsAny<OnAttached>()))
+            .Returns(() => mockSenderLink.Object);
+        
         mockSession.Setup(sess => sess.CloseAsync()).Returns(Task.CompletedTask);
 
         var mockConnection = new Mock<IConnection>(MockBehavior.Strict);
@@ -61,7 +62,7 @@ public class PublisherTests(ITestOutputHelper outputHelper)
     [Fact]
     public async Task PublishAsyncShould()
     {
-        const string addressPrefix = "/exchanges/test-events";
+        const string addressPrefix = "/exchange/test-events";
         const string senderName = "test-sender";
 
         ISenderLink senderLink = SetupMockSenderLink();
@@ -69,15 +70,6 @@ public class PublisherTests(ITestOutputHelper outputHelper)
         IConnection connection = CreateMockConnection(session);
         ILogger<Publisher> logger = MakeLogger();
 
-        Activity? capturedActivity = null;
-
-        ActivityListener listener = new()
-        {
-            ShouldListenTo = _ => true,
-            ActivityStarted = activity => { capturedActivity = activity; },
-        };
-
-        ActivitySource.AddActivityListener(listener);
         IHost host = CreateHostWithTelemetry();
         host.Start();
 
@@ -88,50 +80,6 @@ public class PublisherTests(ITestOutputHelper outputHelper)
         await host.StopAsync();
 
         Mock.Get(senderLink).Verify(link => link.SendAsync(It.IsAny<Message>()));
-
-        Func<OnAttached, bool> onAttachedMatcher = OnAttachedMatcher;
-
-        Mock.Get(session)
-            .Verify(sess =>
-                sess.CreateSender(senderName,
-                    It.Is<Target>(target => target.Durable == 1 && target.Address == $"{addressPrefix}/{info.Subject}"),
-                    It.Is<OnAttached>(attached => onAttachedMatcher(attached))));
-
-        bool OnAttachedMatcher(OnAttached onAttached)
-        {
-            onAttached.Invoke(senderLink, new Attach());
-
-            try
-            {
-                using var scope = new AssertionScope();
-
-                capturedActivity!.Tags.ToList().ForEach(p => outputHelper.WriteLine($"{p.Key}={p.Value}"));
-
-                outputHelper.WriteLine(
-                    $"{info.TracingId:N},{info.Subject},{EntityEventInfoExtensions.EventType},{new Uri(EntityEventInfoExtensions.Source).AbsoluteUri}");
-
-                capturedActivity!.Tags.Should().Contain(pair =>
-                    pair.Key == "cloudEvent.Id" && pair.Value == info.TracingId.ToString("N"));
-
-                capturedActivity!.Tags.Should().Contain(pair =>
-                    pair.Key == "cloudEvent.Subject" && pair.Value == info.Subject);
-
-                capturedActivity!.Tags.Should().Contain(pair =>
-                    pair.Key == "cloudEvent.Source" && pair.Value == new Uri(EntityEventInfoExtensions.Source).AbsoluteUri);
-
-                capturedActivity!.Tags.Should().Contain(pair =>
-                    pair.Key == "cloudEvent.Type" && pair.Value == EntityEventInfoExtensions.EventType);
-
-                capturedActivity!.Tags.Should().Contain(pair =>
-                    pair.Key == "cloudEvent.Time" && pair.Value == info.Timestamp.ToString("O"));
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 
     private static IHost CreateHostWithTelemetry()

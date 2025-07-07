@@ -24,7 +24,7 @@ builder.UseSerilog((context, provider, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(provider));
 
-builder.ConfigureHostConfiguration(configurationBuilder => configurationBuilder.AddUserSecrets<MyHostedService>());
+builder.ConfigureAppConfiguration(configurationBuilder => configurationBuilder.AddUserSecrets<MyHostedService>());
 
 Lazy<MetricPusher> pusher = null!;
 

@@ -6,10 +6,9 @@ using Innago.Platform.Messaging.EntityEvents;
 using Innago.Platform.Messaging.Publisher;
 using Innago.Shared.TryHelpers;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-internal class MyHostedService(IServiceProvider provider) : IHostedService
+internal class MyHostedService(IPublisher publisher) : IHostedService
 {
     private static readonly Faker Faker = new();
 
@@ -21,11 +20,10 @@ internal class MyHostedService(IServiceProvider provider) : IHostedService
 
             await TryHelpers.TryAsync(async () =>
             {
-                await using var publisher = ActivatorUtilities.GetServiceOrCreateInstance<IPublisher>(provider);
                 await publisher.PublishAsync(entityEvent, SourceGenerationContext.Default).ConfigureAwait(false);
             }).ConfigureAwait(false);
 
-            await Task.Delay(30_000, cancellationToken).ConfigureAwait(false);
+            await Task.Delay(3_000, cancellationToken).ConfigureAwait(false);
         }
     }
 
