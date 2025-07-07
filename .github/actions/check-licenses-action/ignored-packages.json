@@ -6,7 +6,7 @@
   "Moq",
   "Moq.Analyzers",
   "NETStandard.Library",
-  "FluentAssertions",
+  "AwesomeAssertions",
   "Bogus",
   "Innago.Shared.TryHelpers",
   "Innago.Shared.HealthChecks.TcpHealthProbe"

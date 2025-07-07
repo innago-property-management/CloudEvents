@@ -17,12 +17,14 @@ public static class EntityWithIdExtensions
     /// <param name="entity">The entity to be converted into the event information.</param>
     /// <param name="verb">The action verb that represents the type of event (e.g., Create, Update, Delete).</param>
     /// <param name="tenantId">The tenant identifier associated with the entity, if applicable.</param>
+    /// <param name="userEmailAddress">The email address of the user who initiated the event, if applicable.</param>
     /// <returns>An instance of IEntityEventInfo encapsulating the given entity, the specified action verb, and tenant details.</returns>
     /// <exception cref="InvalidOperationException">Thrown when the entity's ID is null.</exception>
     public static IEntityEventInfo<IEntityWithId<TId>> ToEntityEventInfo<TId>(
         this IEntityWithId<TId> entity,
         Verb verb,
-        string? tenantId = null)
+        string? tenantId = null,
+        string? userEmailAddress = null)
     {
         if (entity == null)
         {
@@ -30,7 +32,7 @@ public static class EntityWithIdExtensions
         }
 
         string id = entity.Id?.ToString() ?? throw new InvalidOperationException("Id is null.");
-        return new EntityEventInfo<IEntityWithId<TId>>(id, verb, tenantId, entity);
+        return new EntityEventInfo<IEntityWithId<TId>>(id, verb, tenantId, entity, userEmailAddress);
     }
 
     /// <summary>
@@ -39,12 +41,14 @@ public static class EntityWithIdExtensions
     /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
     /// <param name="entity">The entity to be converted into the event information.</param>
     /// <param name="tenantId">The tenant identifier associated with the entity, if applicable.</param>
+    /// <param name="userEmailAddress">The email address of the user who initiated the event, if applicable.</param>
     /// <returns>An instance of IEntityEventInfo encapsulating the given entity and Create event details.</returns>
     public static IEntityEventInfo<IEntityWithId<TId>> ToCreateEntityEventInfo<TId>(
         this IEntityWithId<TId> entity,
-        string? tenantId = null)
+        string? tenantId = null,
+        string? userEmailAddress = null)
     {
-        return entity.ToEntityEventInfo(Verb.Create, tenantId);
+        return entity.ToEntityEventInfo(Verb.Create, tenantId, userEmailAddress);
     }
 
     /// <summary>
@@ -53,12 +57,14 @@ public static class EntityWithIdExtensions
     /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
     /// <param name="entity">The entity to be converted into the event information.</param>
     /// <param name="tenantId">The tenant identifier associated with the entity, if applicable.</param>
+    /// <param name="userEmailAddress">The email address of the user who initiated the event, if applicable.</param>
     /// <returns>An instance of IEntityEventInfo encapsulating the given entity and Update event details.</returns>
     public static IEntityEventInfo<IEntityWithId<TId>> ToUpdateEntityEventInfo<TId>(
         this IEntityWithId<TId> entity,
-        string? tenantId = null)
+        string? tenantId = null,
+        string? userEmailAddress = null)
     {
-        return entity.ToEntityEventInfo(Verb.Update, tenantId);
+        return entity.ToEntityEventInfo(Verb.Update, tenantId, userEmailAddress);
     }
 
     /// <summary>
@@ -67,12 +73,14 @@ public static class EntityWithIdExtensions
     /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
     /// <param name="entity">The entity to be converted into the event information.</param>
     /// <param name="tenantId">The tenant identifier associated with the entity, if applicable.</param>
+    /// <param name="userEmailAddress">The email address of the user who initiated the event, if applicable.</param>
     /// <returns>An instance of IEntityEventInfo encapsulating the given entity and Delete event details.</returns>
     public static IEntityEventInfo<IEntityWithId<TId>> ToDeleteEntityEventInfo<TId>(
         this IEntityWithId<TId> entity,
-        string? tenantId = null)
+        string? tenantId = null,
+        string? userEmailAddress = null)
     {
-        return entity.ToEntityEventInfo(Verb.Delete, tenantId);
+        return entity.ToEntityEventInfo(Verb.Delete, tenantId, userEmailAddress);
     }
 
     /// <summary>
@@ -81,11 +89,13 @@ public static class EntityWithIdExtensions
     /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
     /// <param name="entity">The entity to be converted into the event information.</param>
     /// <param name="tenantId">The tenant identifier associated with the entity, if applicable.</param>
+    /// <param name="userEmailAddress">The email address of the user who initiated the event, if applicable.</param>
     /// <returns>An instance of IEntityEventInfo encapsulating the given entity and Purge event details.</returns>
     public static IEntityEventInfo<IEntityWithId<TId>> ToPurgeEntityEventInfo<TId>(
         this IEntityWithId<TId> entity,
-        string? tenantId = null)
+        string? tenantId = null,
+        string? userEmailAddress = null)
     {
-        return entity.ToEntityEventInfo(Verb.Purge, tenantId);
+        return entity.ToEntityEventInfo(Verb.Purge, tenantId, userEmailAddress);
     }
 }

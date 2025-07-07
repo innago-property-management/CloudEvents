@@ -1,0 +1,1 @@
+Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.UserEmailAddress.get -> string?

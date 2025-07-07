@@ -2,7 +2,7 @@ namespace UnitTests.Publisher.Amqp;
 
 using System.Text.Json;
 
-using FluentAssertions;
+using AwesomeAssertions;
 
 using Innago.Platform.Messaging.EntityEvents;
 using Innago.Platform.Messaging.Publisher.Amqp;

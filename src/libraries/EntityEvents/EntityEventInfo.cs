@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 /// The type of the entity data associated with the event.
 /// </typeparam>
 [PublicAPI]
-public record EntityEventInfo<T>(string Id, Verb Verb, string? TenantId = null, T? Data = default) : IEntityEventInfo<T>
+public record EntityEventInfo<T>(string Id, Verb Verb, string? TenantId = null, T? Data = default, string? UserEmailAddress = null) : IEntityEventInfo<T>
 {
     /// <summary>
     /// Gets the subject identifier for the event in a formatted string.

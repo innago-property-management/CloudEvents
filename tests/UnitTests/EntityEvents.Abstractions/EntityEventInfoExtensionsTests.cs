@@ -2,7 +2,7 @@ namespace UnitTests.EntityEvents.Abstractions;
 
 using AutoFixture;
 
-using FluentAssertions;
+using AwesomeAssertions;
 
 using Innago.Platform.Messaging.EntityEvents;
 
@@ -99,6 +99,15 @@ public class EntityEventInfoExtensionsTests
     }
 
     [Fact]
+    public void ToCloudEventShouldEmailAddressCorrectly()
+    {
+        IEntityEventInfo<(string K, string V)> entityEventInfo = MakeEntityEventInfo();
+        var cloudEvent = entityEventInfo.ToCloudEvent();
+
+        cloudEvent["emailaddress"].Should().Be(entityEventInfo.UserEmailAddress);
+    }
+
+    [Fact]
     public void ToCloudEventShouldSetTypeCorrectly()
     {
         IEntityEventInfo<(string K, string V)> entityEventInfo = MakeEntityEventInfo();
@@ -116,7 +125,8 @@ public class EntityEventInfoExtensionsTests
                 info.EntityName == typeof((string K, string V)).FullName &&
                 info.Id == Fixture.Create<string>() &&
                 info.TenantId == Fixture.Create<string>() &&
-                info.Verb == Fixture.Create<Verb>(),
+                info.Verb == Fixture.Create<Verb>() &&
+                info.UserEmailAddress == Fixture.Create<string>(),
             MockBehavior.Strict);
     }
 }

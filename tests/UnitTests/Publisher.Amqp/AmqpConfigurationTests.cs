@@ -1,7 +1,7 @@
 namespace UnitTests.Publisher.Amqp;
 
-using FluentAssertions;
-using FluentAssertions.Execution;
+using AwesomeAssertions;
+using AwesomeAssertions.Execution;
 
 using Innago.Platform.Messaging.Publisher.Amqp;
 

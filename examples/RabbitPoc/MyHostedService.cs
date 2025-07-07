@@ -39,12 +39,13 @@ internal class MyHostedService(IServiceProvider provider) : IHostedService
         var verb = MyHostedService.Faker.PickRandom<Verb>();
         string entityId = MyHostedService.Faker.Random.AlphaNumeric(8);
         string tenantId = MyHostedService.Faker.Random.AlphaNumeric(8);
+        string emailAddress = MyHostedService.Faker.Person.Email;
 
         var data = new SomeEntity(
             MyHostedService.Faker.Commerce.Color(),
             MyHostedService.Faker.Internet.Email());
 
-        var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data);
+        var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data, emailAddress);
 
         return info;
     }

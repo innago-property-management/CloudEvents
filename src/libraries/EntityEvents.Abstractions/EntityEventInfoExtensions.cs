@@ -38,6 +38,7 @@ public static class EntityEventInfoExtensions
         cloudEvent.SetAttributeFromString("entityaction", $"{entityEventInfo.Verb}");
         cloudEvent.SetAttributeFromString("timestamp", entityEventInfo.Timestamp.ToString("O"));
         cloudEvent.SetAttributeFromString("tracingid", entityEventInfo.TracingId.ToString("N"));
+        cloudEvent.SetAttributeFromString("emailaddress", entityEventInfo.UserEmailAddress ?? string.Empty);
 
         return cloudEvent;
     }

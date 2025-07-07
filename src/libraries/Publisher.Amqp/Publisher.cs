@@ -102,13 +102,14 @@ public sealed class Publisher(
 
             lnk.AddClosedCallback(OnClosed);
 
-            void OnClosed(IAmqpObject sender, Error error)
+            // ReSharper disable once SeparateLocalFunctionsWithJumpStatement
+            void OnClosed(IAmqpObject sender, Error onClosedError)
             {
-                if (activity != null && error != null!)
+                if (activity != null && onClosedError != null!)
                 {
-                    activity.SetStatus(ActivityStatusCode.Error, error.Description);
-                    activity.SetTag("amqp.error.condition", error.Condition);
-                    activity.SetTag("amqp.error.description", error.Description);
+                    activity.SetStatus(ActivityStatusCode.Error, onClosedError.Description);
+                    activity.SetTag("amqp.error.condition", onClosedError.Condition);
+                    activity.SetTag("amqp.error.description", onClosedError.Description);
                 }
 
                 activity?.Dispose();
