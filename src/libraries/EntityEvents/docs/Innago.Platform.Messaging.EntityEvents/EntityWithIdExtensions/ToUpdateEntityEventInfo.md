@@ -2,7 +2,7 @@
 
 ```csharp
 public static IEntityEventInfo<IEntityWithId<TId>> ToUpdateEntityEventInfo<TId>(
-    this IEntityWithId<TId> entity, string? tenantId = null)
+    this IEntityWithId<TId> entity, string? tenantId = null, string? userEmailAddress = null)
 ```
 
 ## See Also

@@ -43,7 +43,7 @@ internal class MyHostedService(IServiceProvider provider) : IHostedService
 
         var data = new SomeEntity(
             MyHostedService.Faker.Commerce.Color(),
-            MyHostedService.Faker.Internet.Email());
+            emailAddress);
 
         var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data, emailAddress);
 

@@ -1,7 +1,8 @@
 # EntityEventInfo&lt;T&gt; constructor
 
 ```csharp
-public EntityEventInfo(string Id, Verb Verb, string? TenantId = null, T? Data = default)
+public EntityEventInfo(string Id, Verb Verb, string? TenantId = null, T? Data = default, 
+    string? UserEmailAddress = null)
 ```
 
 ## See Also
