@@ -7,8 +7,8 @@ using AutoFixture;
 
 using CloudNative.CloudEvents;
 
-using FluentAssertions;
-using FluentAssertions.Execution;
+using AwesomeAssertions;
+using AwesomeAssertions.Execution;
 
 using global::Amqp;
 using global::Amqp.Framing;

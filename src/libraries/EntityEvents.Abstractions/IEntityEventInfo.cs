@@ -60,4 +60,11 @@ public interface IEntityEventInfo<out T>
     /// This identifier is used for tracking and correlating events across distributed systems or processes.
     /// </summary>
     Guid TracingId { get; }
+
+    /// <summary>
+    /// Gets the email address associated with the user who performed the action
+    /// related to the entity event. This information helps identify the user initiating
+    /// the event.
+    /// </summary>
+    string? UserEmailAddress { get; }
 }

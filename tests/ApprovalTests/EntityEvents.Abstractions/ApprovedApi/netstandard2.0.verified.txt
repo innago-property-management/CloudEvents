@@ -16,6 +16,7 @@ namespace Innago.Platform.Messaging.EntityEvents
         string? TenantId { get; }
         System.DateTimeOffset Timestamp { get; }
         System.Guid TracingId { get; }
+        string? UserEmailAddress { get; }
         Innago.Platform.Messaging.EntityEvents.Verb Verb { get; }
     }
     public interface IEntityWithId<TId>

@@ -2,7 +2,7 @@ namespace UnitTests.EntityEvents;
 
 using AutoFixture;
 
-using FluentAssertions;
+using AwesomeAssertions;
 
 using Innago.Platform.Messaging.EntityEvents;
 
