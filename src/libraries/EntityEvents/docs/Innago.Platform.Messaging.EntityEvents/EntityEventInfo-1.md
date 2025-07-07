@@ -16,6 +16,7 @@ public record EntityEventInfo<T> : IEntityEventInfo<T>
 | [TenantId](EntityEventInfo-1/TenantId.md) { get; set; } |  |
 | [Timestamp](EntityEventInfo-1/Timestamp.md) { get; } |  |
 | [TracingId](EntityEventInfo-1/TracingId.md) { get; } |  |
+| [UserEmailAddress](EntityEventInfo-1/UserEmailAddress.md) { get; set; } |  |
 | [Verb](EntityEventInfo-1/Verb.md) { get; set; } |  |
 
 ## See Also

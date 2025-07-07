@@ -1,8 +1,7 @@
-# EntityEventInfo&lt;T&gt; constructor
+# EntityEventInfo&lt;T&gt;.UserEmailAddress property
 
 ```csharp
-public EntityEventInfo(string Id, Verb Verb, string? TenantId = null, T? Data = default, 
-    string? UserEmailAddress = null)
+public string? UserEmailAddress { get; set; }
 ```
 
 ## See Also

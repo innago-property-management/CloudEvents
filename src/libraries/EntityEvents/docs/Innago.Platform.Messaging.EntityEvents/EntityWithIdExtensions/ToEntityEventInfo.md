@@ -2,7 +2,8 @@
 
 ```csharp
 public static IEntityEventInfo<IEntityWithId<TId>> ToEntityEventInfo<TId>(
-    this IEntityWithId<TId> entity, Verb verb, string? tenantId = null)
+    this IEntityWithId<TId> entity, Verb verb, string? tenantId = null, 
+    string? userEmailAddress = null)
 ```
 
 ## See Also

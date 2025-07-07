@@ -15,6 +15,7 @@ public interface IEntityEventInfo<out T>
 | [TenantId](IEntityEventInfo-1/TenantId.md) { get; } |  |
 | [Timestamp](IEntityEventInfo-1/Timestamp.md) { get; } |  |
 | [TracingId](IEntityEventInfo-1/TracingId.md) { get; } |  |
+| [UserEmailAddress](IEntityEventInfo-1/UserEmailAddress.md) { get; } |  |
 | [Verb](IEntityEventInfo-1/Verb.md) { get; } |  |
 
 ## See Also
