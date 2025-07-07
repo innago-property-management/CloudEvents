@@ -8,11 +8,18 @@ registries:
   nuget-innago-property-management-github:
     type: nuget-feed
     url: https://nuget.pkg.github.com/innago-property-management/index.json
-    username: ${{ github.actor }}
-    password: ${{ secrets.CLASSIC_PACKAGE_PUSH }}
+#    username: ${{ github.actor }}
+    token: ${{ secrets.CLASSIC_PACKAGE_PUSH }}
 updates:
   - package-ecosystem: "nuget"
     directory: "/"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 1
+    registries:
+      - "nuget-innago-property-management-github"
+      - "nuget.org"
+    groups:
+      all-nuget-dependencies:
+        patterns:
+          - "*"
