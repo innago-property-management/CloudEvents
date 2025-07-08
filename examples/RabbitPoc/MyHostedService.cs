@@ -6,6 +6,8 @@ using Innago.Platform.Messaging.EntityEvents;
 using Innago.Platform.Messaging.Publisher;
 using Innago.Shared.TryHelpers;
 
+using JetBrains.Annotations;
+
 using Microsoft.Extensions.Hosting;
 
 internal class MyHostedService(IPublisher publisher) : IHostedService
@@ -16,7 +18,7 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            IEntityEventInfo<SomeEntity> entityEvent = MakeEntityEvent();
+            IEntityEventInfo<Wrapper> entityEvent = MakeEntityEvent();
 
             await TryHelpers.TryAsync(async () =>
             {
@@ -32,21 +34,20 @@ internal class MyHostedService(IPublisher publisher) : IHostedService
         return Task.CompletedTask;
     }
 
-    private static IEntityEventInfo<SomeEntity> MakeEntityEvent()
+    private static IEntityEventInfo<Wrapper> MakeEntityEvent()
     {
         var verb = MyHostedService.Faker.PickRandom<Verb>();
         string entityId = MyHostedService.Faker.Random.AlphaNumeric(8);
         string tenantId = MyHostedService.Faker.Random.AlphaNumeric(8);
         string emailAddress = MyHostedService.Faker.Person.Email;
 
-        var data = new SomeEntity(
-            MyHostedService.Faker.Commerce.Color(),
-            emailAddress);
+        var data = new Wrapper(MyHostedService.Faker.Music.Genre());
 
-        var info = new EntityEventInfo<SomeEntity>(entityId, verb, tenantId, Data: data, emailAddress);
+        var info = new EntityEventInfo<Wrapper>(entityId, verb, tenantId, Data: data, emailAddress);
 
         return info;
     }
-
-    internal record SomeEntity(string Value, string EmailAddress);
 }
+
+[UsedImplicitly]
+internal record Wrapper(string Value);
