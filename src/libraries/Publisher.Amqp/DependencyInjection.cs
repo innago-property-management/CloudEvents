@@ -1,6 +1,7 @@
 namespace Innago.Platform.Messaging.Publisher.Amqp;
 
 using global::Amqp;
+using global::Amqp.Framing;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +38,7 @@ public static class DependencyInjection
             throw new InvalidOperationException("missing config");
         }
 
-        var config = section.Get<AmqpConfiguration>();
+        AmqpConfiguration config = section.Get<AmqpConfiguration>() ?? throw new InvalidOperationException("missing config");
         Configure(services, config);
 
         return services;
@@ -45,29 +46,26 @@ public static class DependencyInjection
 
     private static void Configure(IServiceCollection services, AmqpConfiguration? configuration)
     {
-        services.TryAddTransient<IConnectionFactory, ConnectionFactory>();
+        services.TryAddSingleton<IConnectionFactory, ConnectionFactory>();
 
-        services.TryAddTransient<IConnection>(provider =>
+        services.TryAddSingleton<IConnection>(provider =>
         {
-            var factory = ActivatorUtilities.GetServiceOrCreateInstance<IConnectionFactory>(provider);
-
-            return factory.CreateAsync(configuration?.Address.ToAddress()).GetAwaiter().GetResult();
+            var address = configuration?.Address.ToAddress();
+            
+            return new Connection(address, null, new Open { HostName = $"vhost:{address!.Path.TrimStart('/')}" }, null);
         });
 
-        ObjectFactory<Publisher> factory =
-            ActivatorUtilities.CreateFactory<Publisher>([typeof(IConnection), typeof(ILogger<Publisher>), typeof(string), typeof(string)]);
-
-        services.TryAddTransient<IPublisher>(provider =>
+        services.TryAddSingleton<IPublisher>(provider =>
         {
             var connection = ActivatorUtilities.GetServiceOrCreateInstance<IConnection>(provider);
 
             var logger = ActivatorUtilities.GetServiceOrCreateInstance<ILogger<Publisher>>(provider);
 
-            var address = $"/exchanges/{configuration?.ExchangeName ?? "innago-entity-events"}";
+            var address = $"/exchange/{configuration?.ExchangeName ?? "innago-entity-events"}";
 
             string senderName = configuration?.SenderName ?? "entity-event-publisher";
 
-            return factory.Invoke(provider, [connection, logger, address, senderName]);
+            return new Publisher(connection, logger, address, senderName);
         });
     }
 }

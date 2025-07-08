@@ -4,5 +4,5 @@ using System.Text.Json.Serialization;
 
 using Innago.Platform.Messaging.EntityEvents;
 
-[JsonSerializable(typeof(IEntityEventInfo<MyHostedService.SomeEntity>))]
+[JsonSerializable(typeof(IEntityEventInfo<Wrapper>))]
 internal partial class SourceGenerationContext : JsonSerializerContext;

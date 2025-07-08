@@ -27,7 +27,7 @@ namespace Innago.Platform.Messaging.Publisher.Amqp
     }
     public sealed class Publisher : Innago.Platform.Messaging.Publisher.IPublisher, System.IAsyncDisposable
     {
-        public Publisher(Amqp.IConnection connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher> logger, string addressPrefix, string senderName) { }
+        public Publisher(Amqp.IConnection connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher> logger, string address, string senderName) { }
         public System.Threading.Tasks.ValueTask DisposeAsync() { }
         public System.Threading.Tasks.Task PublishAsync<T>(CloudNative.CloudEvents.CloudEvent cloudEvent, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver typeInfoResolver) { }
         public System.Threading.Tasks.Task PublishAsync<T>(Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T> entityEventInfo, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver typeInfoResolver) { }
