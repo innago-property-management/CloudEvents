@@ -23,4 +23,5 @@ jobs:
     with: 
       argoCdRepoName: "${{ github.repository_owner }}/argocd-shared"
       imageName: 'innago.platform.messaging.cloudevents.console-example'
+      slsa: true
     
