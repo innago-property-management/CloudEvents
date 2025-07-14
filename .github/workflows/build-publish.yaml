@@ -19,7 +19,7 @@ jobs:
       packages: write
       pull-requests: write
       id-token: write
-      contents: read
+      contents: write
       actions: read
     with: 
       argoCdRepoName: "${{ github.repository_owner }}/argocd-shared"
