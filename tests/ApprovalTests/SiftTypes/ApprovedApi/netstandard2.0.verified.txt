@@ -1,0 +1,111 @@
+﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/innago-property-management/CloudEvents")]
+namespace Innago.SiftTypes
+{
+    public class Account : System.IEquatable<Innago.SiftTypes.Account>
+    {
+        public Account(string UserEmailAddress, string SessionId, string UserFullName, string Ip, Innago.SiftTypes.Browser? Browser, Innago.SiftTypes.Address BillingAddress, Innago.SiftTypes.PaymentMethod[]? PaymentMethods, System.DateTimeOffset Time) { }
+        public Innago.SiftTypes.Address BillingAddress { get; init; }
+        public Innago.SiftTypes.Browser? Browser { get; init; }
+        public string Ip { get; init; }
+        public Innago.SiftTypes.PaymentMethod[]? PaymentMethods { get; init; }
+        public string Phone { get; }
+        public string SessionId { get; init; }
+        public System.DateTimeOffset Time { get; init; }
+        public long UnixTime { get; }
+        public string UserEmailAddress { get; init; }
+        public string UserFullName { get; init; }
+        public string UserId { get; }
+    }
+    public class Address : System.IEquatable<Innago.SiftTypes.Address>
+    {
+        public Address(string AddressLine1, string? AddressLine2, string City, string State, string Country, string PostalCode, string Phone) { }
+        [System.Text.Json.Serialization.JsonPropertyName("$address_1")]
+        public string AddressLine1 { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$address_2")]
+        public string? AddressLine2 { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$city")]
+        public string City { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$country")]
+        public string Country { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$phone")]
+        public string Phone { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$zipcode")]
+        public string PostalCode { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$region")]
+        public string State { get; init; }
+    }
+    public class Browser : System.IEquatable<Innago.SiftTypes.Browser>
+    {
+        public Browser(string UserAgent, string AcceptLanguage, string ContentLanguage) { }
+        [System.Text.Json.Serialization.JsonPropertyName("$accept_language")]
+        public string AcceptLanguage { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$content_language")]
+        public string ContentLanguage { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$user_agent")]
+        public string UserAgent { get; init; }
+    }
+    public class PaymentMethod : System.IEquatable<Innago.SiftTypes.PaymentMethod>
+    {
+        public PaymentMethod(string PaymentType, string? CardBin, string? CardLast4, string? PaymentGateway, string? VerificationStatus, string? RoutingNumber, string? BankName, string? BankCountry, string? AccountNumberLast5) { }
+        [System.Text.Json.Serialization.JsonPropertyName("$account_number_last5")]
+        public string? AccountNumberLast5 { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$bank_country")]
+        public string? BankCountry { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$bank_name")]
+        public string? BankName { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$card_bin")]
+        public string? CardBin { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$card_last4")]
+        public string? CardLast4 { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$payment_gateway")]
+        public string? PaymentGateway { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$payment_type")]
+        public string PaymentType { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$routing_number")]
+        public string? RoutingNumber { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("$verification_status")]
+        public string? VerificationStatus { get; init; }
+    }
+    public class Transaction : System.IEquatable<Innago.SiftTypes.Transaction>
+    {
+        public Transaction(
+                    decimal Amount,
+                    string CurrencyCode,
+                    string? DeclineCategory,
+                    string InvoiceId,
+                    string OrganizationId,
+                    string SessionId,
+                    string TransactionId,
+                    string TransactionType,
+                    string Ip,
+                    Innago.SiftTypes.Browser Browser,
+                    Innago.SiftTypes.Address BillingAddress,
+                    Innago.SiftTypes.PaymentMethod PaymentMethod,
+                    string UserFullName,
+                    string UserEmailAddress,
+                    string SellerUserId,
+                    System.DateTimeOffset Time) { }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public decimal Amount { get; init; }
+        [System.Text.Json.Serialization.JsonPropertyName("amount")]
+        public long AmountForSift { get; }
+        public Innago.SiftTypes.Address BillingAddress { get; init; }
+        public Innago.SiftTypes.Browser Browser { get; init; }
+        public string CurrencyCode { get; init; }
+        public string? DeclineCategory { get; init; }
+        public string InvoiceId { get; init; }
+        public string Ip { get; init; }
+        public string OrganizationId { get; init; }
+        public Innago.SiftTypes.PaymentMethod PaymentMethod { get; init; }
+        public string SellerUserId { get; init; }
+        public string SessionId { get; init; }
+        public System.DateTimeOffset Time { get; init; }
+        public string TransactionId { get; init; }
+        public string TransactionType { get; init; }
+        public long UnixTime { get; }
+        public string UserEmailAddress { get; init; }
+        public string UserFullName { get; init; }
+        public string UserId { get; }
+        public string UserPhone { get; }
+    }
+}

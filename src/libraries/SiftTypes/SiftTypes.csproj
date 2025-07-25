@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Innago.SiftTypes</RootNamespace>
+        <AssemblyName>Innago.SiftTypes</AssemblyName>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Sift Entities</Title>
+        <Copyright>2025 Innago</Copyright>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <IsPackable>True</IsPackable>
+        <PackageReadMeFile>README.md</PackageReadMeFile>
+        <IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">true</IsTrimmable>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
+        <RepositoryUrl>https://github.com/innago-property-management/CloudEvents</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/innago-property-management/CloudEvents/tree/main/src/libraries/SiftTypes</PackageProjectUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DocumentationFile>bin\Debug\netstandard2.0\Innago.SiftTypes.xml</DocumentationFile>
+        <DefaultDocumentationFolder>docs</DefaultDocumentationFolder>
+        <DefaultDocumentationFileNameFactory>DirectoryName</DefaultDocumentationFileNameFactory>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(CI)' == 'true' ">
+        <DisableDefaultDocumentation>true</DisableDefaultDocumentation>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DefaultDocumentation" Version="1.2.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="System.Text.Json" Version="9.0.7"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <None Remove="PublicAPI.Unshipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+</Project>

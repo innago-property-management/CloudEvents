@@ -9,5 +9,5 @@ public interface IEntityWithId<TId>
     /// <summary>
     /// Gets or sets the ID.
     /// </summary>
-    TId Id { get; set; }
+    TId Id { get; init; }
 }

@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.18.1" />
         <PackageReference Include="AwesomeAssertions" Version="9.1.0" />
+        <PackageReference Include="Bogus" Version="35.6.3" />
         <PackageReference Include="coverlet.collector" Version="6.0.4">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -23,6 +24,11 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="DefaultDocumentation" Version="1.2.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Innago.Shared.UnitTesting.TestHelpers" Version="2.0.1" />
         <PackageReference Include="junittestlogger" Version="1.1.0" />
         <PackageReference Include="JunitXml.TestLogger" Version="6.1.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
@@ -45,7 +51,7 @@
     </ItemGroup>
     
     <ItemGroup Condition="'$(TargetFramework)' == 'net9.0' ">
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.2">
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
@@ -59,6 +65,7 @@
       <ProjectReference Include="..\..\src\libraries\EntityEvents.Abstractions\EntityEvents.Abstractions.csproj" />
       <ProjectReference Include="..\..\src\libraries\EntityEvents\EntityEvents.csproj" />
       <ProjectReference Include="..\..\src\libraries\Publisher.Amqp\Publisher.Amqp.csproj" />
+      <ProjectReference Include="..\..\src\libraries\SiftTypes\SiftTypes.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">

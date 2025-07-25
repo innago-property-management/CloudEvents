@@ -1,0 +1,158 @@
+Innago.SiftTypes.Account
+Innago.SiftTypes.Account.Account(Innago.SiftTypes.Account! original) -> void
+Innago.SiftTypes.Account.Account(string! UserEmailAddress, string! SessionId, string! UserFullName, string! Ip, Innago.SiftTypes.Browser? Browser, Innago.SiftTypes.Address! BillingAddress, Innago.SiftTypes.PaymentMethod![]? PaymentMethods, System.DateTimeOffset Time) -> void
+Innago.SiftTypes.Account.BillingAddress.get -> Innago.SiftTypes.Address!
+Innago.SiftTypes.Account.BillingAddress.init -> void
+Innago.SiftTypes.Account.Browser.get -> Innago.SiftTypes.Browser?
+Innago.SiftTypes.Account.Browser.init -> void
+Innago.SiftTypes.Account.Deconstruct(out string! UserEmailAddress, out string! SessionId, out string! UserFullName, out string! Ip, out Innago.SiftTypes.Browser? Browser, out Innago.SiftTypes.Address! BillingAddress, out Innago.SiftTypes.PaymentMethod![]? PaymentMethods, out System.DateTimeOffset Time) -> void
+Innago.SiftTypes.Account.Ip.get -> string!
+Innago.SiftTypes.Account.Ip.init -> void
+Innago.SiftTypes.Account.PaymentMethods.get -> Innago.SiftTypes.PaymentMethod![]?
+Innago.SiftTypes.Account.PaymentMethods.init -> void
+Innago.SiftTypes.Account.Phone.get -> string!
+Innago.SiftTypes.Account.SessionId.get -> string!
+Innago.SiftTypes.Account.SessionId.init -> void
+Innago.SiftTypes.Account.Time.get -> System.DateTimeOffset
+Innago.SiftTypes.Account.Time.init -> void
+Innago.SiftTypes.Account.UnixTime.get -> long
+Innago.SiftTypes.Account.UserEmailAddress.get -> string!
+Innago.SiftTypes.Account.UserEmailAddress.init -> void
+Innago.SiftTypes.Account.UserFullName.get -> string!
+Innago.SiftTypes.Account.UserFullName.init -> void
+Innago.SiftTypes.Account.UserId.get -> string!
+Innago.SiftTypes.Address
+Innago.SiftTypes.Address.Address(Innago.SiftTypes.Address! original) -> void
+Innago.SiftTypes.Address.Address(string! AddressLine1, string? AddressLine2, string! City, string! State, string! Country, string! PostalCode, string! Phone) -> void
+Innago.SiftTypes.Address.AddressLine1.get -> string!
+Innago.SiftTypes.Address.AddressLine1.init -> void
+Innago.SiftTypes.Address.AddressLine2.get -> string?
+Innago.SiftTypes.Address.AddressLine2.init -> void
+Innago.SiftTypes.Address.City.get -> string!
+Innago.SiftTypes.Address.City.init -> void
+Innago.SiftTypes.Address.Country.get -> string!
+Innago.SiftTypes.Address.Country.init -> void
+Innago.SiftTypes.Address.Deconstruct(out string! AddressLine1, out string? AddressLine2, out string! City, out string! State, out string! Country, out string! PostalCode, out string! Phone) -> void
+Innago.SiftTypes.Address.Phone.get -> string!
+Innago.SiftTypes.Address.Phone.init -> void
+Innago.SiftTypes.Address.PostalCode.get -> string!
+Innago.SiftTypes.Address.PostalCode.init -> void
+Innago.SiftTypes.Address.State.get -> string!
+Innago.SiftTypes.Address.State.init -> void
+Innago.SiftTypes.Browser
+Innago.SiftTypes.Browser.AcceptLanguage.get -> string!
+Innago.SiftTypes.Browser.AcceptLanguage.init -> void
+Innago.SiftTypes.Browser.Browser(Innago.SiftTypes.Browser! original) -> void
+Innago.SiftTypes.Browser.Browser(string! UserAgent, string! AcceptLanguage, string! ContentLanguage) -> void
+Innago.SiftTypes.Browser.ContentLanguage.get -> string!
+Innago.SiftTypes.Browser.ContentLanguage.init -> void
+Innago.SiftTypes.Browser.Deconstruct(out string! UserAgent, out string! AcceptLanguage, out string! ContentLanguage) -> void
+Innago.SiftTypes.Browser.UserAgent.get -> string!
+Innago.SiftTypes.Browser.UserAgent.init -> void
+Innago.SiftTypes.PaymentMethod
+Innago.SiftTypes.PaymentMethod.AccountNumberLast5.get -> string?
+Innago.SiftTypes.PaymentMethod.AccountNumberLast5.init -> void
+Innago.SiftTypes.PaymentMethod.BankCountry.get -> string?
+Innago.SiftTypes.PaymentMethod.BankCountry.init -> void
+Innago.SiftTypes.PaymentMethod.BankName.get -> string?
+Innago.SiftTypes.PaymentMethod.BankName.init -> void
+Innago.SiftTypes.PaymentMethod.CardBin.get -> string?
+Innago.SiftTypes.PaymentMethod.CardBin.init -> void
+Innago.SiftTypes.PaymentMethod.CardLast4.get -> string?
+Innago.SiftTypes.PaymentMethod.CardLast4.init -> void
+Innago.SiftTypes.PaymentMethod.Deconstruct(out string! PaymentType, out string? CardBin, out string? CardLast4, out string? PaymentGateway, out string? VerificationStatus, out string? RoutingNumber, out string? BankName, out string? BankCountry, out string? AccountNumberLast5) -> void
+Innago.SiftTypes.PaymentMethod.PaymentGateway.get -> string?
+Innago.SiftTypes.PaymentMethod.PaymentGateway.init -> void
+Innago.SiftTypes.PaymentMethod.PaymentMethod(Innago.SiftTypes.PaymentMethod! original) -> void
+Innago.SiftTypes.PaymentMethod.PaymentMethod(string! PaymentType, string? CardBin, string? CardLast4, string? PaymentGateway, string? VerificationStatus, string? RoutingNumber, string? BankName, string? BankCountry, string? AccountNumberLast5) -> void
+Innago.SiftTypes.PaymentMethod.PaymentType.get -> string!
+Innago.SiftTypes.PaymentMethod.PaymentType.init -> void
+Innago.SiftTypes.PaymentMethod.RoutingNumber.get -> string?
+Innago.SiftTypes.PaymentMethod.RoutingNumber.init -> void
+Innago.SiftTypes.PaymentMethod.VerificationStatus.get -> string?
+Innago.SiftTypes.PaymentMethod.VerificationStatus.init -> void
+Innago.SiftTypes.Transaction
+Innago.SiftTypes.Transaction.Amount.get -> decimal
+Innago.SiftTypes.Transaction.Amount.init -> void
+Innago.SiftTypes.Transaction.AmountForSift.get -> long
+Innago.SiftTypes.Transaction.BillingAddress.get -> Innago.SiftTypes.Address!
+Innago.SiftTypes.Transaction.BillingAddress.init -> void
+Innago.SiftTypes.Transaction.Browser.get -> Innago.SiftTypes.Browser!
+Innago.SiftTypes.Transaction.Browser.init -> void
+Innago.SiftTypes.Transaction.CurrencyCode.get -> string!
+Innago.SiftTypes.Transaction.CurrencyCode.init -> void
+Innago.SiftTypes.Transaction.DeclineCategory.get -> string?
+Innago.SiftTypes.Transaction.DeclineCategory.init -> void
+Innago.SiftTypes.Transaction.Deconstruct(out decimal Amount, out string! CurrencyCode, out string? DeclineCategory, out string! InvoiceId, out string! OrganizationId, out string! SessionId, out string! TransactionId, out string! TransactionType, out string! Ip, out Innago.SiftTypes.Browser! Browser, out Innago.SiftTypes.Address! BillingAddress, out Innago.SiftTypes.PaymentMethod! PaymentMethod, out string! UserFullName, out string! UserEmailAddress, out string! SellerUserId, out System.DateTimeOffset Time) -> void
+Innago.SiftTypes.Transaction.InvoiceId.get -> string!
+Innago.SiftTypes.Transaction.InvoiceId.init -> void
+Innago.SiftTypes.Transaction.Ip.get -> string!
+Innago.SiftTypes.Transaction.Ip.init -> void
+Innago.SiftTypes.Transaction.OrganizationId.get -> string!
+Innago.SiftTypes.Transaction.OrganizationId.init -> void
+Innago.SiftTypes.Transaction.PaymentMethod.get -> Innago.SiftTypes.PaymentMethod!
+Innago.SiftTypes.Transaction.PaymentMethod.init -> void
+Innago.SiftTypes.Transaction.SellerUserId.get -> string!
+Innago.SiftTypes.Transaction.SellerUserId.init -> void
+Innago.SiftTypes.Transaction.SessionId.get -> string!
+Innago.SiftTypes.Transaction.SessionId.init -> void
+Innago.SiftTypes.Transaction.Time.get -> System.DateTimeOffset
+Innago.SiftTypes.Transaction.Time.init -> void
+Innago.SiftTypes.Transaction.Transaction(Innago.SiftTypes.Transaction! original) -> void
+Innago.SiftTypes.Transaction.Transaction(decimal Amount, string! CurrencyCode, string? DeclineCategory, string! InvoiceId, string! OrganizationId, string! SessionId, string! TransactionId, string! TransactionType, string! Ip, Innago.SiftTypes.Browser! Browser, Innago.SiftTypes.Address! BillingAddress, Innago.SiftTypes.PaymentMethod! PaymentMethod, string! UserFullName, string! UserEmailAddress, string! SellerUserId, System.DateTimeOffset Time) -> void
+Innago.SiftTypes.Transaction.TransactionId.get -> string!
+Innago.SiftTypes.Transaction.TransactionId.init -> void
+Innago.SiftTypes.Transaction.TransactionType.get -> string!
+Innago.SiftTypes.Transaction.TransactionType.init -> void
+Innago.SiftTypes.Transaction.UnixTime.get -> long
+Innago.SiftTypes.Transaction.UserEmailAddress.get -> string!
+Innago.SiftTypes.Transaction.UserEmailAddress.init -> void
+Innago.SiftTypes.Transaction.UserFullName.get -> string!
+Innago.SiftTypes.Transaction.UserFullName.init -> void
+Innago.SiftTypes.Transaction.UserId.get -> string!
+Innago.SiftTypes.Transaction.UserPhone.get -> string!
+override Innago.SiftTypes.Account.Equals(object? obj) -> bool
+override Innago.SiftTypes.Account.GetHashCode() -> int
+override Innago.SiftTypes.Account.ToString() -> string!
+override Innago.SiftTypes.Address.Equals(object? obj) -> bool
+override Innago.SiftTypes.Address.GetHashCode() -> int
+override Innago.SiftTypes.Address.ToString() -> string!
+override Innago.SiftTypes.Browser.Equals(object? obj) -> bool
+override Innago.SiftTypes.Browser.GetHashCode() -> int
+override Innago.SiftTypes.Browser.ToString() -> string!
+override Innago.SiftTypes.PaymentMethod.Equals(object? obj) -> bool
+override Innago.SiftTypes.PaymentMethod.GetHashCode() -> int
+override Innago.SiftTypes.PaymentMethod.ToString() -> string!
+override Innago.SiftTypes.Transaction.Equals(object? obj) -> bool
+override Innago.SiftTypes.Transaction.GetHashCode() -> int
+override Innago.SiftTypes.Transaction.ToString() -> string!
+static Innago.SiftTypes.Account.operator !=(Innago.SiftTypes.Account? left, Innago.SiftTypes.Account? right) -> bool
+static Innago.SiftTypes.Account.operator ==(Innago.SiftTypes.Account? left, Innago.SiftTypes.Account? right) -> bool
+static Innago.SiftTypes.Address.operator !=(Innago.SiftTypes.Address? left, Innago.SiftTypes.Address? right) -> bool
+static Innago.SiftTypes.Address.operator ==(Innago.SiftTypes.Address? left, Innago.SiftTypes.Address? right) -> bool
+static Innago.SiftTypes.Browser.operator !=(Innago.SiftTypes.Browser? left, Innago.SiftTypes.Browser? right) -> bool
+static Innago.SiftTypes.Browser.operator ==(Innago.SiftTypes.Browser? left, Innago.SiftTypes.Browser? right) -> bool
+static Innago.SiftTypes.PaymentMethod.operator !=(Innago.SiftTypes.PaymentMethod? left, Innago.SiftTypes.PaymentMethod? right) -> bool
+static Innago.SiftTypes.PaymentMethod.operator ==(Innago.SiftTypes.PaymentMethod? left, Innago.SiftTypes.PaymentMethod? right) -> bool
+static Innago.SiftTypes.Transaction.operator !=(Innago.SiftTypes.Transaction? left, Innago.SiftTypes.Transaction? right) -> bool
+static Innago.SiftTypes.Transaction.operator ==(Innago.SiftTypes.Transaction? left, Innago.SiftTypes.Transaction? right) -> bool
+virtual Innago.SiftTypes.Account.<Clone>$() -> Innago.SiftTypes.Account!
+virtual Innago.SiftTypes.Account.EqualityContract.get -> System.Type!
+virtual Innago.SiftTypes.Account.Equals(Innago.SiftTypes.Account? other) -> bool
+virtual Innago.SiftTypes.Account.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Innago.SiftTypes.Address.<Clone>$() -> Innago.SiftTypes.Address!
+virtual Innago.SiftTypes.Address.EqualityContract.get -> System.Type!
+virtual Innago.SiftTypes.Address.Equals(Innago.SiftTypes.Address? other) -> bool
+virtual Innago.SiftTypes.Address.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Innago.SiftTypes.Browser.<Clone>$() -> Innago.SiftTypes.Browser!
+virtual Innago.SiftTypes.Browser.EqualityContract.get -> System.Type!
+virtual Innago.SiftTypes.Browser.Equals(Innago.SiftTypes.Browser? other) -> bool
+virtual Innago.SiftTypes.Browser.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Innago.SiftTypes.PaymentMethod.<Clone>$() -> Innago.SiftTypes.PaymentMethod!
+virtual Innago.SiftTypes.PaymentMethod.EqualityContract.get -> System.Type!
+virtual Innago.SiftTypes.PaymentMethod.Equals(Innago.SiftTypes.PaymentMethod? other) -> bool
+virtual Innago.SiftTypes.PaymentMethod.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Innago.SiftTypes.Transaction.<Clone>$() -> Innago.SiftTypes.Transaction!
+virtual Innago.SiftTypes.Transaction.EqualityContract.get -> System.Type!
+virtual Innago.SiftTypes.Transaction.Equals(Innago.SiftTypes.Transaction? other) -> bool
+virtual Innago.SiftTypes.Transaction.PrintMembers(System.Text.StringBuilder! builder) -> bool

@@ -1,5 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
+using Innago.Platform.Messaging.EntityEvents;
+using Innago.Platform.Messaging.Publisher;
 using Innago.Platform.Messaging.Publisher.Amqp;
 using Innago.Shared.HealthChecks.TcpHealthProbe;
 
@@ -50,11 +54,41 @@ builder.ConfigureServices((context, services) =>
     services.TryAddTransient(_ => TracerProvider.Default.GetTracer(serviceName));
 
     pusher = new Lazy<MetricPusher>(() => ProgramConfiguration.MetricPusher(serviceName, context.Configuration));
+
+    services.ConfigureHttpJsonOptions(options =>
+    {
+        options.SerializerOptions.TypeInfoResolverChain.Insert(0, SourceGenerationContext.Default);
+        
+        options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+        options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Always;
+
+        options.SerializerOptions.WriteIndented = true;
+
+        options.SerializerOptions.TypeInfoResolver = SourceGenerationContext.Default;
+    });
 });
 
 IHost app = builder.UseConsoleLifetime().Build();
 pusher.Value.Start();
 await app.StartAsync();
 
+var publisher = ActivatorUtilities.GetServiceOrCreateInstance<IPublisher>(app.Services);
+
+var paymentFailed = new CreditCardPaymentFailed("my-id", "my error");
+
+IEntityEventInfo<IEntityWithId<string>> eventInfo = paymentFailed.ToCreateEntityEventInfo();
+
+MyMetrics.PaymentFailed.Inc();
+
+await publisher.PublishAsync(eventInfo, SourceGenerationContext.Default).ConfigureAwait(false);
+
 [ExcludeFromCodeCoverage]
 internal static partial class Program;
+
+internal record CreditCardPaymentFailed(string Id, string ErrorMessage) : IEntityWithId<string>;
+
+internal static class MyMetrics
+{
+    internal static Counter PaymentFailed = Metrics.CreateCounter(nameof(MyMetrics.PaymentFailed), "payment failed");
+}
