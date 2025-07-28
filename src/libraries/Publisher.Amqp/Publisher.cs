@@ -51,6 +51,9 @@ public sealed class Publisher(
             {
                 new JsonStringEnumConverter(),
             },
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            WriteIndented = true,
+            RespectNullableAnnotations = true,
         };
 
         CloudEventFormatter formatter = new JsonEventFormatter<IEntityEventInfo<T>>(options, new JsonDocumentOptions());

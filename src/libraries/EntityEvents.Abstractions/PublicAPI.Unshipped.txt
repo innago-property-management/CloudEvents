@@ -1,1 +1,2 @@
 Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.UserEmailAddress.get -> string?
+Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>.Id.init -> void

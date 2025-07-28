@@ -23,6 +23,10 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="DefaultDocumentation" Version="1.2.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="junittestlogger" Version="1.1.0" />
         <PackageReference Include="JunitXml.TestLogger" Version="6.1.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
@@ -36,10 +40,10 @@
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
         <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
         <PackageReference Include="Verify.DiffPlex" Version="3.1.2" />
-        <PackageReference Include="Verify.Xunit" Version="30.4.0" />
+        <PackageReference Include="Verify.Xunit" Version="30.5.0" />
         <PackageReference Include="xunit" Version="2.9.3" />
         <PackageReference Include="Xunit.OpenCategories" Version="2.2.1.11" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.2">
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
@@ -54,10 +58,12 @@
       <ProjectReference Include="..\..\src\libraries\EntityEvents\EntityEvents.csproj" />
       <ProjectReference Include="..\..\src\libraries\Publisher.Abstractions\Publisher.Abstractions.csproj" />
       <ProjectReference Include="..\..\src\libraries\Publisher.Amqp\Publisher.Amqp.csproj" />
+      <ProjectReference Include="..\..\src\libraries\SiftTypes\SiftTypes.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="EntityEvents\ApprovedApi\" />
+      <Folder Include="SiftTypes\ApprovedApi\" />
     </ItemGroup>
 
     <ItemGroup>

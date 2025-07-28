@@ -51,7 +51,7 @@ internal static class ProgramConfiguration
             var amqpUriString = $"{scheme}://{WebUtility.UrlEncode(userName)}:{WebUtility.UrlEncode(password)}@{hostName}:{portStr}{virtualHostPath}";
 
             var amqpLiteConnectionFactory = new ConnectionFactory();
-            var address = new Address(amqpUriString);
+            var address = new Amqp.Address(amqpUriString);
 
             Result<Connection?> result = await TryHelpers.TryAsync(() => amqpLiteConnectionFactory.CreateAsync(address)).ConfigureAwait(false);
 

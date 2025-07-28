@@ -21,7 +21,7 @@ namespace Innago.Platform.Messaging.EntityEvents
     }
     public interface IEntityWithId<TId>
     {
-        TId Id { get; set; }
+        TId Id { get; init; }
     }
     public enum Verb
     {

@@ -9,5 +9,6 @@
   "AwesomeAssertions",
   "Bogus",
   "Innago.Shared.TryHelpers",
-  "Innago.Shared.HealthChecks.TcpHealthProbe"
+  "Innago.Shared.HealthChecks.TcpHealthProbe",
+  "Innago.Shared.UnitTesting.TestHelpers"
 ]
