@@ -1,14 +1,11 @@
 [
   "SonarAnalyzer.CSharp",
-  "Serilog.Sinks.Grafana.Loki",
-  "System.Text.RegularExpressions",
-  "System.Net.Http",
+  "Serilog.*",
+  "System.*",
   "Moq",
   "Moq.Analyzers",
   "NETStandard.Library",
   "AwesomeAssertions",
   "Bogus",
-  "Innago.Shared.TryHelpers",
-  "Innago.Shared.HealthChecks.TcpHealthProbe",
-  "Innago.Shared.UnitTesting.TestHelpers"
+  "Innago.*"
 ]
