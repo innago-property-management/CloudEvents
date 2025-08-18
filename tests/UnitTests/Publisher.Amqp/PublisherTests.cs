@@ -36,23 +36,39 @@ public class PublisherTests
         mockSenderLink.Setup(link => link.CloseAsync()).Returns(Task.CompletedTask);
 
         var mockSession = new Mock<ISession>(MockBehavior.Strict);
-        
-        mockSession.Setup(sess => 
-            sess.CreateSender(It.IsAny<string>(), It.IsAny<Target>(), It.IsAny<OnAttached>()))
+
+        mockSession.Setup(sess =>
+                sess.CreateSender(It.IsAny<string>(), It.IsAny<Target>(), It.IsAny<OnAttached>()))
             .Returns(() => mockSenderLink.Object);
-        
+
         mockSession.Setup(sess => sess.CloseAsync()).Returns(Task.CompletedTask);
 
         var mockConnection = new Mock<IConnection>(MockBehavior.Strict);
         mockConnection.Setup(conn => conn.CreateSession()).Returns(mockSession.Object);
 
+        var mockConnectionFactory = new Mock<IConnectionFactory>(MockBehavior.Strict);
+        mockConnectionFactory.Setup(factory => factory.CreateAsync(It.IsAny<Address>())).ReturnsAsync((Address _) => mockConnection.Object);
+
         ILogger<Publisher> logger = MakeLogger();
 
+        AmqpConfiguration configuration = new()
+        {
+            SenderName = "sender",
+            ExchangeName = "prefix",
+            Address = new AmqpConfiguration.AddressInfo
+            {
+                Scheme = "AMQP",
+                Host = "loclahost",
+                Port = 5672,
+                Path = "exchange/foo",
+                User = Guid.CreateVersion7().ToString("N"),
+            },
+        };
+
         var publisher = new Publisher(
-            mockConnection.Object,
+            mockConnectionFactory.Object,
             logger,
-            "/prefix",
-            "sender");
+            configuration);
 
         Exception? ex = await Record.ExceptionAsync(() => publisher.DisposeAsync().AsTask());
         ex.Should().BeNull();
@@ -62,19 +78,26 @@ public class PublisherTests
     [Fact]
     public async Task PublishAsyncShould()
     {
-        const string addressPrefix = "/exchange/test-events";
         const string senderName = "test-sender";
 
         ISenderLink senderLink = SetupMockSenderLink();
         ISession session = CreateMockSession(senderLink);
         IConnection connection = CreateMockConnection(session);
+        IConnectionFactory factory = CreateMockConnectionFactory(connection);
         ILogger<Publisher> logger = MakeLogger();
 
         IHost host = CreateHostWithTelemetry();
         host.Start();
 
         var info = new EntityEventInfo<string>(Guid.NewGuid().ToString(), PublisherTests.Fixture.Create<Verb>());
-        Publisher publisher = new(connection, logger, addressPrefix, senderName);
+
+        AmqpConfiguration configuration = new()
+        {
+            SenderName = senderName,
+            Address = new AmqpConfiguration.AddressInfo { Scheme = "AMQP" },
+        };
+
+        Publisher publisher = new(factory, logger, configuration);
         await publisher.PublishAsync(info, new DefaultJsonTypeInfoResolver());
 
         await host.StopAsync();
@@ -106,6 +129,11 @@ public class PublisherTests
         return Mock.Of<IConnection>(
             connection => connection.CreateSession() == session,
             MockBehavior.Strict);
+    }
+
+    private static IConnectionFactory CreateMockConnectionFactory(IConnection connection)
+    {
+        return Mock.Of<IConnectionFactory>(factory => factory.CreateAsync(It.IsAny<Address>()) == Task.FromResult(connection), MockBehavior.Strict);
     }
 
     private static ISession CreateMockSession(IAmqpObject senderLink)

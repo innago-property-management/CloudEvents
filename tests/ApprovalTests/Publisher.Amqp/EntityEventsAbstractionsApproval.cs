@@ -14,9 +14,9 @@ using Xunit.OpenCategories;
 [Category($"{nameof(Publisher)}.{nameof(Amqp)}")]
 public class PublisherAmqpApproval
 {
-    private const string SourceFolder = "../src/libraries";
     private const string ProjectFolder = "Publisher.Amqp";
     private const string ProjectName = $"{PublisherAmqpApproval.ProjectFolder}.csproj";
+    private const string SourceFolder = "../src/libraries";
 
     static PublisherAmqpApproval()
     {
@@ -35,7 +35,7 @@ public class PublisherAmqpApproval
     public Task ApproveApi(string framework)
     {
         var dllName = $"{GetProjectElement("/Project/PropertyGroup/AssemblyName")?.Value ?? PublisherAmqpApproval.ProjectFolder}.dll";
-        
+
         string configuration = typeof(PublisherAmqpApproval).Assembly.GetCustomAttribute<AssemblyConfigurationAttribute>()!.Configuration;
 
         string assemblyFile = CombinedPaths(PublisherAmqpApproval.SourceFolder,
@@ -46,7 +46,7 @@ public class PublisherAmqpApproval
             dllName);
 
         Assembly assembly = Assembly.LoadFile(assemblyFile);
-        string publicApi = assembly.GeneratePublicApi(options: null);
+        string publicApi = assembly.GeneratePublicApi();
 
         string outputDirectory = Path.Combine("ApprovedApi");
 
@@ -54,13 +54,29 @@ public class PublisherAmqpApproval
         {
             Directory.CreateDirectory(outputDirectory);
         }
-        
-        return Verifier
-            .Verify(publicApi)
+
+        return Verify(publicApi)
             .ScrubLinesContaining("FrameworkDisplayName")
             .UseDirectory(outputDirectory)
             .UseFileName(framework)
             .DisableDiff();
+    }
+
+    private static string CombinedPaths(params string[] paths)
+    {
+        return Path.GetFullPath(Path.Combine(paths.Prepend(GetSolutionDirectory()).ToArray()));
+    }
+
+    private static XElement? GetProjectElement(string expression)
+    {
+        string csproj = CombinedPaths(PublisherAmqpApproval.SourceFolder, PublisherAmqpApproval.ProjectFolder, PublisherAmqpApproval.ProjectName);
+        XDocument project = XDocument.Load(csproj);
+        return project.XPathSelectElement(expression);
+    }
+
+    private static string GetSolutionDirectory([CallerFilePath] string path = "")
+    {
+        return Path.Combine(Path.GetDirectoryName(path)!, "..", "..");
     }
 
     private class TargetFrameworksTheoryData : TheoryData<string>
@@ -73,17 +89,4 @@ public class PublisherAmqpApproval
             this.AddRange(targetFrameworks!.Value.Split(';'));
         }
     }
-
-    private static XElement? GetProjectElement(string expression)
-    {
-        string csproj = CombinedPaths(PublisherAmqpApproval.SourceFolder, PublisherAmqpApproval.ProjectFolder, PublisherAmqpApproval.ProjectName);
-        XDocument project = XDocument.Load(csproj);
-        return project.XPathSelectElement(expression);
-    }
-
-    private static string GetSolutionDirectory([CallerFilePath] string path = "") =>
-        Path.Combine(Path.GetDirectoryName(path)!, "..", "..");
-
-    private static string CombinedPaths(params string[] paths) =>
-        Path.GetFullPath(Path.Combine(paths.Prepend(GetSolutionDirectory()).ToArray()));
 }

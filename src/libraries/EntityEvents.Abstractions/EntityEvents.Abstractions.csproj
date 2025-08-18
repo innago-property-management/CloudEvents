@@ -36,12 +36,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CloudNative.CloudEvents" Version="2.8.0" />
+        <PackageReference Include="CloudNative.CloudEvents" Version="2.8.0"/>
         <PackageReference Include="DefaultDocumentation" Version="1.2.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.0"/>
         <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -54,14 +54,14 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="System.Text.Json" Version="9.0.7" />
+        <PackageReference Include="System.Text.Json" Version="9.0.8"/>
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt" />
-        <None Remove="PublicAPI.Unshipped.txt" />
-        <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-        <None Include="README.md" Pack="true" PackagePath="\" />
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <None Remove="PublicAPI.Unshipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

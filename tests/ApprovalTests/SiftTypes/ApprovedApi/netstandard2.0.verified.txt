@@ -1,6 +1,7 @@
 ﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/innago-property-management/CloudEvents")]
 namespace Innago.SiftTypes
 {
+    [JetBrains.Annotations.PublicAPI]
     public class Account : System.IEquatable<Innago.SiftTypes.Account>
     {
         public Account(string UserEmailAddress, string SessionId, string UserFullName, string Ip, Innago.SiftTypes.Browser? Browser, Innago.SiftTypes.Address BillingAddress, Innago.SiftTypes.PaymentMethod[]? PaymentMethods, System.DateTimeOffset Time) { }
@@ -44,6 +45,7 @@ namespace Innago.SiftTypes
         [System.Text.Json.Serialization.JsonPropertyName("$user_agent")]
         public string UserAgent { get; init; }
     }
+    [JetBrains.Annotations.PublicAPI]
     public class PaymentMethod : System.IEquatable<Innago.SiftTypes.PaymentMethod>
     {
         public PaymentMethod(string PaymentType, string? CardBin, string? CardLast4, string? PaymentGateway, string? VerificationStatus, string? RoutingNumber, string? BankName, string? BankCountry, string? AccountNumberLast5) { }
@@ -66,6 +68,7 @@ namespace Innago.SiftTypes
         [System.Text.Json.Serialization.JsonPropertyName("$verification_status")]
         public string? VerificationStatus { get; init; }
     }
+    [JetBrains.Annotations.UsedImplicitly]
     public class Transaction : System.IEquatable<Innago.SiftTypes.Transaction>
     {
         public Transaction(

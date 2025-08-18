@@ -7,7 +7,7 @@ This property determines the target exchange where messages will be routed
 for further delivery to the appropriate queues or consumers\.
 
 ```csharp
-public string? ExchangeName { get; set; }
+public string ExchangeName { get; set; }
 ```
 
 #### Property Value

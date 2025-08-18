@@ -13,4 +13,5 @@ public static readonly ActivitySource Source;
 
 ### Remarks
 The [Source](Source.md 'Innago\.Platform\.Messaging\.Publisher\.Amqp\.PublisherTracer\.Source') is utilized to initiate, manage, and track distributed tracing activities, enabling
-proper monitoring and diagnostics of publisher operations\. It integrates with tracing frameworks for enhanced observability\.
+proper monitoring and diagnostics of publisher operations\. It integrates with tracing frameworks for enhanced
+observability\.

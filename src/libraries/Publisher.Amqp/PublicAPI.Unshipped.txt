@@ -1,1 +1,4 @@
-Innago.Platform.Messaging.Publisher.Amqp.Publisher.Publisher(Amqp.IConnection! connection, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher!>! logger, string! address, string! senderName) -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.AddressInfo(string! Host, int Port, string? User = null, string? Password = null, string? Path = null, string! Scheme = "AMQPS") -> void
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.AddressInfo.Path.get -> string?
+Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration.ExchangeName.get -> string!
+Innago.Platform.Messaging.Publisher.Amqp.Publisher.Publisher(Amqp.IConnectionFactory! connectionFactory, Microsoft.Extensions.Logging.ILogger<Innago.Platform.Messaging.Publisher.Amqp.Publisher!>! logger, Innago.Platform.Messaging.Publisher.Amqp.AmqpConfiguration! configuration) -> void

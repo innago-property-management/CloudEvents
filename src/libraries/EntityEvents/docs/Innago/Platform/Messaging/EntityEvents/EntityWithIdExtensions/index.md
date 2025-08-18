@@ -3,7 +3,8 @@
 ## EntityWithIdExtensions Class
 
 Provides extension methods for converting entities implementing IEntityWithId\<TId\> into IEntityEventInfo\<T\>
-instances\. These methods assist in creating events associated with specific actions, such as create, update, delete,
+instances\. These methods assist in creating events associated with specific actions, such as create, update,
+delete,
 and purge, while also enabling the inclusion of optional tenant details\.
 
 ```csharp

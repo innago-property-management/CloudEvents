@@ -42,6 +42,14 @@ public class TransactionTests
     }
 
     [Fact]
+    public void AmountForSift_ShouldBe_Amount_Times_1_000_000()
+    {
+        decimal amount = TransactionTests.ValueFaker.Random.Decimal(1, 100);
+        Transaction tx = this.transaction with { Amount = amount };
+        tx.AmountForSift.Should().Be((long)(amount * 1_000_000));
+    }
+
+    [Fact]
     public void AmountForSift_ShouldHaveJsonName_amount()
     {
         var attribute = PropertyChecker.CheckAttribute<JsonPropertyNameAttribute>(() => this.transaction.AmountForSift);
@@ -50,17 +58,9 @@ public class TransactionTests
     }
 
     [Fact]
-    public void AmountForSift_ShouldBe_Amount_Times_1_000_000()
-    {
-        decimal amount = ValueFaker.Random.Decimal(1, 100);
-        Transaction tx = this.transaction with { Amount = amount };
-        tx.AmountForSift.Should().Be((long)(amount * 1_000_000));
-    }
-
-    [Fact]
     public void UnixTime_ShouldUseValueFrom_Time()
     {
-        DateTimeOffset time = ValueFaker.Date.RecentOffset();
+        DateTimeOffset time = TransactionTests.ValueFaker.Date.RecentOffset();
         Transaction tx = this.transaction with { Time = time };
         tx.UnixTime.Should().Be(time.ToUnixTimeMilliseconds());
     }
@@ -68,7 +68,7 @@ public class TransactionTests
     [Fact]
     public void UserId_ShouldUseValueFrom_UserEmailAddress()
     {
-        string? email = ValueFaker.Internet.Email();
+        string? email = TransactionTests.ValueFaker.Internet.Email();
         Transaction tx = this.transaction with { UserEmailAddress = email };
         tx.UserId.Should().Be(email);
     }
@@ -76,7 +76,7 @@ public class TransactionTests
     [Fact]
     public void UserPhone_ShouldUseValueFrom_BillingAddress_Phone()
     {
-        string? phone = ValueFaker.Phone.PhoneNumber();
+        string? phone = TransactionTests.ValueFaker.Phone.PhoneNumber();
         Address address = this.transaction.BillingAddress with { Phone = phone };
         Transaction tx = this.transaction with { BillingAddress = address };
         tx.UserPhone.Should().Be(phone);

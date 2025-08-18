@@ -23,6 +23,7 @@ namespace Innago.Platform.Messaging.EntityEvents
     {
         TId Id { get; init; }
     }
+    [JetBrains.Annotations.PublicAPI]
     public enum Verb
     {
         None = -1,

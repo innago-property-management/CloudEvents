@@ -53,12 +53,12 @@ builder.ConfigureServices((context, services) =>
 
     services.TryAddTransient(_ => TracerProvider.Default.GetTracer(serviceName));
 
-    pusher = new Lazy<MetricPusher>(() => ProgramConfiguration.MetricPusher(serviceName, context.Configuration));
+    pusher = new Lazy<MetricPusher>(() => MetricPusher(serviceName, context.Configuration));
 
     services.ConfigureHttpJsonOptions(options =>
     {
         options.SerializerOptions.TypeInfoResolverChain.Insert(0, SourceGenerationContext.Default);
-        
+
         options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
         options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Always;
@@ -90,5 +90,5 @@ internal record CreditCardPaymentFailed(string Id, string ErrorMessage) : IEntit
 
 internal static class MyMetrics
 {
-    internal static Counter PaymentFailed = Metrics.CreateCounter(nameof(MyMetrics.PaymentFailed), "payment failed");
+    internal static readonly Counter PaymentFailed = Metrics.CreateCounter(nameof(MyMetrics.PaymentFailed), "payment failed");
 }

@@ -20,16 +20,6 @@ using Prometheus;
 
 internal static class ProgramConfiguration
 {
-    internal static MetricPusher MetricPusher(string serviceName, IConfiguration configuration)
-    {
-        return new MetricPusher(new MetricPusherOptions
-        {
-            Endpoint = configuration["metricsEndpoint"],
-            Job = serviceName,
-            IntervalMilliseconds = 30_000,
-        });
-    }
-
     internal static Func<CancellationToken, Task<HealthCheckResult>> AmqpCheck(HostBuilderContext hostBuilderContext, string serviceName)
     {
         return DoIt;
@@ -44,14 +34,13 @@ internal static class ProgramConfiguration
             string? hostName = configuration["publisherAmqp:address:host"];
             string portStr = configuration["publisherAmqp:address:port"] ?? "5672";
             string scheme = configuration["publisherAmqp:address:scheme"] ?? "amqp";
-            string? virtualHost = configuration["publisherAmqp:address:virtualHost"];
 
-            string virtualHostPath = string.IsNullOrEmpty(virtualHost) || virtualHost == "/" ? "" : $"/{virtualHost.TrimStart('/')}";
-            
-            var amqpUriString = $"{scheme}://{WebUtility.UrlEncode(userName)}:{WebUtility.UrlEncode(password)}@{hostName}:{portStr}{virtualHostPath}";
+            // string virtualHostPath = string.IsNullOrEmpty(virtualHost) || virtualHost == "/" ? "" : $"/{virtualHost.TrimStart('/')}";
+
+            var amqpUriString = $"{scheme}://{WebUtility.UrlEncode(userName)}:{WebUtility.UrlEncode(password)}@{hostName}:{portStr}/";
 
             var amqpLiteConnectionFactory = new ConnectionFactory();
-            var address = new Amqp.Address(amqpUriString);
+            var address = new Address(amqpUriString);
 
             Result<Connection?> result = await TryHelpers.TryAsync(() => amqpLiteConnectionFactory.CreateAsync(address)).ConfigureAwait(false);
 
@@ -61,26 +50,6 @@ internal static class ProgramConfiguration
 
             return healthCheckResult;
         }
-    }
-
-    private static HealthCheckResult OnError(Exception? _)
-    {
-        return HealthCheckResult.Unhealthy();
-    }
-
-    private static HealthCheckResult OnSuccess(Connection? connection)
-    {
-        HealthCheckResult result = connection switch
-        {
-            null => HealthCheckResult.Unhealthy(),
-            { IsClosed: true } => HealthCheckResult.Unhealthy(),
-            { Error: not null } => HealthCheckResult.Unhealthy(),
-            _ => HealthCheckResult.Healthy(),
-        };
-
-        // TryHelpers.TryAsync(async () => await (connection?.CloseAsync() ?? Task.CompletedTask).ConfigureAwait(false));
-
-        return result;
     }
 
     internal static Action<MeterProviderBuilder> ConfigureMetrics(IConfiguration configuration, string serviceName)
@@ -124,6 +93,16 @@ internal static class ProgramConfiguration
         }
     }
 
+    internal static MetricPusher MetricPusher(string serviceName, IConfiguration configuration)
+    {
+        return new MetricPusher(new MetricPusherOptions
+        {
+            Endpoint = configuration["metricsEndpoint"],
+            Job = serviceName,
+            IntervalMilliseconds = 30_000,
+        });
+    }
+
     private static Action<OtlpExporterOptions> ConfigureOtlpExporter(IConfiguration configuration)
     {
         return Configure;
@@ -133,5 +112,24 @@ internal static class ProgramConfiguration
             options.Protocol = OtlpExportProtocol.HttpProtobuf;
             options.Endpoint = new Uri(configuration["otlpEndpoint"] ?? throw new InvalidOperationException("missing otlp uri"));
         }
+    }
+
+    private static HealthCheckResult OnError(Exception? _)
+    {
+        return HealthCheckResult.Unhealthy();
+    }
+
+    private static HealthCheckResult OnSuccess(Connection? connection)
+    {
+        HealthCheckResult result = connection switch
+        {
+            null => HealthCheckResult.Unhealthy(),
+            { IsClosed: true } or { Error: not null } => HealthCheckResult.Unhealthy(),
+            _ => HealthCheckResult.Healthy(),
+        };
+
+        // TryHelpers.TryAsync(async () => await (connection?.CloseAsync() ?? Task.CompletedTask).ConfigureAwait(false));
+
+        return result;
     }
 }

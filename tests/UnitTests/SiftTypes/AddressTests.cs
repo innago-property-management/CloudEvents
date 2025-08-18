@@ -39,19 +39,19 @@ public class AddressTests
     }
 
     [Fact]
-    public void State_ShouldHaveJsonName_region()
-    {
-        var attribute = PropertyChecker.CheckAttribute<JsonPropertyNameAttribute>(() => this.address.State);
-
-        attribute.Name.Should().Be("$region");
-    }
-
-    [Fact]
     public void Country_ShouldHaveJsonName_country()
     {
         var attribute = PropertyChecker.CheckAttribute<JsonPropertyNameAttribute>(() => this.address.Country);
 
         attribute.Name.Should().Be("$country");
+    }
+
+    [Fact]
+    public void Phone_ShouldHaveJsonName_phone()
+    {
+        var attribute = PropertyChecker.CheckAttribute<JsonPropertyNameAttribute>(() => this.address.Phone);
+
+        attribute.Name.Should().Be("$phone");
     }
 
     [Fact]
@@ -63,10 +63,10 @@ public class AddressTests
     }
 
     [Fact]
-    public void Phone_ShouldHaveJsonName_phone()
+    public void State_ShouldHaveJsonName_region()
     {
-        var attribute = PropertyChecker.CheckAttribute<JsonPropertyNameAttribute>(() => this.address.Phone);
+        var attribute = PropertyChecker.CheckAttribute<JsonPropertyNameAttribute>(() => this.address.State);
 
-        attribute.Name.Should().Be("$phone");
+        attribute.Name.Should().Be("$region");
     }
 }
