@@ -18,3 +18,5 @@ Innago.Platform.Messaging.EntityEvents.Verb.None = -1 -> Innago.Platform.Messagi
 Innago.Platform.Messaging.EntityEvents.Verb.Purge = 3 -> Innago.Platform.Messaging.EntityEvents.Verb
 Innago.Platform.Messaging.EntityEvents.Verb.Update = 1 -> Innago.Platform.Messaging.EntityEvents.Verb
 static Innago.Platform.Messaging.EntityEvents.EntityEventInfoExtensions.ToCloudEvent<T>(this Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>! entityEventInfo) -> CloudNative.CloudEvents.CloudEvent!
+Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>.UserEmailAddress.get -> string?
+Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>.Id.init -> void
