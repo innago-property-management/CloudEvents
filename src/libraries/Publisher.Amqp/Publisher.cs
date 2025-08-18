@@ -17,23 +17,24 @@ using global::Amqp.Types;
 
 using Microsoft.Extensions.Logging;
 
+using Shared.AsyncLazy;
+
 /// <summary>
 ///     Represents a publisher for sending CloudEvent messages to an AMQP-based messaging system.
 ///     Encapsulates the logic for establishing a session, creating sender links, and publishing events.
 /// </summary>
 public sealed class Publisher(
-    IConnection connection,
+    IConnectionFactory connectionFactory,
     ILogger<Publisher> logger,
-    string address,
-    string senderName) : IPublisher
+    AmqpConfiguration configuration) : IPublisher
 {
-    private readonly Lazy<(ISenderLink Link, ISession Session)> sender = new(() => MakeSenderLink(connection, address, senderName));
+    internal (ISenderLink Link, ISession Session) Sender = MakeSenderLink(connectionFactory, configuration);
 
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {
-        await this.sender.Value.Link.CloseAsync();
-        await this.sender.Value.Session.CloseAsync();
+        await this.Sender.Link.CloseAsync();
+        await this.Sender.Session.CloseAsync();
     }
 
     /// <inheritdoc />
@@ -74,7 +75,7 @@ public sealed class Publisher(
             activity?.SetTag("cloudEvent.Source", cloudEvent.Source?.AbsoluteUri);
             activity?.SetTag("cloudEvent.Type", cloudEvent.Type);
             activity?.SetTag("cloudEvent.Time", cloudEvent.Time?.ToString("O"));
-            await this.sender.Value.Link.SendAsync(message).ConfigureAwait(false);
+            await this.Sender.Link.SendAsync(message).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -96,20 +97,21 @@ public sealed class Publisher(
         return this.PublishAsync<T>(entityEventInfo.ToCloudEvent(), typeInfoResolver);
     }
 
-    internal string Address => address;
-    internal string SenderName => senderName;
-
-    private static (ISenderLink, ISession) MakeSenderLink(IConnection conn, string address, string name)
+    private static (ISenderLink, ISession) MakeSenderLink(IConnectionFactory connectionFactory, AmqpConfiguration configuration)
     {
+        IConnection conn = connectionFactory.CreateAsync(configuration.Address.ToAddress()).GetAwaiter().GetResult();
+
         ISession session = conn.CreateSession();
 
+        Target target = new()
+        {
+            Address = configuration.Address.Path,
+            Durable = 1,
+        };
+
         ISenderLink link = session.CreateSender(
-            name,
-            new Target
-            {
-                Address = address,
-                Durable = 1,
-            });
+            configuration.SenderName,
+            target);
 
         return (link, session);
     }

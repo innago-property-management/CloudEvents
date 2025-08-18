@@ -25,7 +25,8 @@ The application configuration used to retrieve AMQP configuration settings\.
 
 `sectionName` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
-Optional\. The name of the configuration section containing AMQP settings\. Defaults to "publisherAmqp"\.
+Optional\. The name of the configuration section containing AMQP settings\. Defaults to
+"publisherAmqp"\.
 
 #### Returns
 [Microsoft\.Extensions\.DependencyInjection\.IServiceCollection](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection 'Microsoft\.Extensions\.DependencyInjection\.IServiceCollection')  
@@ -34,4 +35,5 @@ The updated [Microsoft\.Extensions\.DependencyInjection\.IServiceCollection](htt
 #### Exceptions
 
 [System\.InvalidOperationException](https://learn.microsoft.com/en-us/dotnet/api/system.invalidoperationexception 'System\.InvalidOperationException')  
-Thrown if the specified configuration section does not exist or is missing required settings\.
+Thrown if the specified configuration section does not exist or is missing
+required settings\.

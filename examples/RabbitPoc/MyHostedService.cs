@@ -15,9 +15,6 @@ using Address = Innago.SiftTypes.Address;
 
 internal class MyHostedService(IPublisher publisher, ILogger<MyHostedService> logger) : IHostedService
 {
-    // ReSharper disable once MemberCanBeMadeStatic.Local
-    private Faker Faker => new();
-
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
@@ -51,6 +48,71 @@ internal class MyHostedService(IPublisher publisher, ILogger<MyHostedService> lo
         return Task.CompletedTask;
     }
 
+    // ReSharper disable once MemberCanBeMadeStatic.Local
+    private Faker Faker => new();
+
+    private EntityEventInfo<Account> MakeAccountEntityEvent()
+    {
+        Verb verb = this.Faker.PickRandom(Verb.Create, Verb.Update);
+        string entityId = this.Faker.Random.AlphaNumeric(8);
+        string tenantId = this.Faker.Random.AlphaNumeric(8);
+        string emailAddress = this.Faker.Person.Email;
+
+        List<PaymentMethod> paymentMethods =
+        [
+            new(
+                "$credit_card",
+                this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[..6],
+                this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[^4..],
+                this.Faker.PickRandom("$authorizenet", "$stripe", "$braintree"),
+                this.Faker.PickRandom("$success", "$failure", "$pending"),
+                null,
+                null,
+                null,
+                null
+            ),
+
+            new(
+                "$electronic_fund_transfer",
+                null,
+                null,
+                null,
+                null,
+                this.Faker.Finance.RoutingNumber(),
+                this.Faker.Company.CompanyName(),
+                "US",
+                this.Faker.Finance.Account(5)
+            ),
+        ];
+
+        var data = new Account(
+            emailAddress,
+            this.Faker.Random.Guid().ToString(),
+            this.Faker.Person.FullName,
+            this.Faker.Internet.Ip(),
+            new Browser(
+                this.Faker.Internet.UserAgent(),
+                "en-US,en;q=0.9",
+                "en-US"
+            ),
+            new Address(
+                this.Faker.Address.StreetAddress(),
+                this.Faker.Random.Bool() ? this.Faker.Address.SecondaryAddress() : null,
+                this.Faker.Address.City(),
+                this.Faker.Address.StateAbbr(),
+                "US",
+                this.Faker.Address.ZipCode(),
+                this.Faker.Phone.PhoneNumber("1-###-###-####")
+            ),
+            paymentMethods.ToArray(),
+            DateTimeOffset.Now
+        );
+
+        var info = new EntityEventInfo<Account>(entityId, verb, tenantId, data, emailAddress);
+
+        return info;
+    }
+
     private EntityEventInfo<Transaction> MakeTransactionEntityEvent()
     {
         const Verb verb = Verb.Create;
@@ -64,129 +126,67 @@ internal class MyHostedService(IPublisher publisher, ILogger<MyHostedService> lo
         {
             // Credit Card
             paymentMethod = new PaymentMethod(
-                PaymentType: "$credit_card",
-                CardBin: this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[..6],
-                CardLast4: this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[^4..],
-                PaymentGateway: this.Faker.PickRandom("$authorizenet", "$stripe", "$braintree"),
-                VerificationStatus: this.Faker.PickRandom("$success", "$failure", "$pending"),
-                RoutingNumber: null,
-                BankName: null,
-                BankCountry: null,
-                AccountNumberLast5: null
+                "$credit_card",
+                this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[..6],
+                this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[^4..],
+                this.Faker.PickRandom("$authorizenet", "$stripe", "$braintree"),
+                this.Faker.PickRandom("$success", "$failure", "$pending"),
+                null,
+                null,
+                null,
+                null
             );
         }
         else
         {
             // EFT
             paymentMethod = new PaymentMethod(
-                PaymentType: "$electronic_fund_transfer",
-                CardBin: null,
-                CardLast4: null,
-                PaymentGateway: null,
-                VerificationStatus: null,
-                RoutingNumber: this.Faker.Finance.RoutingNumber(),
-                BankName: this.Faker.Company.CompanyName(),
-                BankCountry: "US",
-                AccountNumberLast5: this.Faker.Finance.Account(5)
+                "$electronic_fund_transfer",
+                null,
+                null,
+                null,
+                null,
+                this.Faker.Finance.RoutingNumber(),
+                this.Faker.Company.CompanyName(),
+                "US",
+                this.Faker.Finance.Account(5)
             );
         }
 
         var data = new Transaction(
-            Amount: this.Faker.Finance.Amount(1, 5000),
-            CurrencyCode: this.Faker.Finance.Currency().Code,
-            DeclineCategory: this.Faker.Random.Bool()
+            this.Faker.Finance.Amount(1, 5000),
+            this.Faker.Finance.Currency().Code,
+            this.Faker.Random.Bool()
                 ? this.Faker.PickRandom("$avs_failed", "$cvv_failed", "$insufficient_funds", "$card_blacklist", "$declined")
                 : null,
-            InvoiceId: this.Faker.Random.Guid().ToString(),
-            OrganizationId: this.Faker.Random.Guid().ToString(),
-            SessionId: this.Faker.Random.Guid().ToString(),
-            TransactionId: this.Faker.Random.Guid().ToString(),
-            TransactionType: this.Faker.PickRandom("$authorize", "$capture", "$sale"),
-            Ip: this.Faker.Internet.Ip(),
-            Browser: new Browser(
-                UserAgent: this.Faker.Internet.UserAgent(),
-                AcceptLanguage: "en-US,en;q=0.9",
-                ContentLanguage: "en-US"
+            this.Faker.Random.Guid().ToString(),
+            this.Faker.Random.Guid().ToString(),
+            this.Faker.Random.Guid().ToString(),
+            this.Faker.Random.Guid().ToString(),
+            this.Faker.PickRandom("$authorize", "$capture", "$sale"),
+            this.Faker.Internet.Ip(),
+            new Browser(
+                this.Faker.Internet.UserAgent(),
+                "en-US,en;q=0.9",
+                "en-US"
             ),
-            BillingAddress: new Address(
-                AddressLine1: this.Faker.Address.StreetAddress(),
-                AddressLine2: this.Faker.Random.Bool() ? this.Faker.Address.SecondaryAddress() : null,
-                City: this.Faker.Address.City(),
-                State: this.Faker.Address.StateAbbr(),
-                Country: "US",
-                PostalCode: this.Faker.Address.ZipCode(),
-                Phone: this.Faker.Phone.PhoneNumber("1-###-###-####")
+            new Address(
+                this.Faker.Address.StreetAddress(),
+                this.Faker.Random.Bool() ? this.Faker.Address.SecondaryAddress() : null,
+                this.Faker.Address.City(),
+                this.Faker.Address.StateAbbr(),
+                "US",
+                this.Faker.Address.ZipCode(),
+                this.Faker.Phone.PhoneNumber("1-###-###-####")
             ),
-            PaymentMethod: paymentMethod,
-            UserFullName: this.Faker.Person.FullName,
-            UserEmailAddress: emailAddress,
-            SellerUserId: this.Faker.Person.Email,
-            Time: DateTimeOffset.Now
+            paymentMethod,
+            this.Faker.Person.FullName,
+            emailAddress,
+            this.Faker.Person.Email,
+            DateTimeOffset.Now
         );
 
-        var info = new EntityEventInfo<Transaction>(entityId, verb, tenantId, Data: data, UserEmailAddress: emailAddress);
-
-        return info;
-    }
-
-    private EntityEventInfo<Account> MakeAccountEntityEvent()
-    {
-        Verb verb = this.Faker.PickRandom(Verb.Create, Verb.Update);
-        string entityId = this.Faker.Random.AlphaNumeric(8);
-        string tenantId = this.Faker.Random.AlphaNumeric(8);
-        string emailAddress = this.Faker.Person.Email;
-
-        List<PaymentMethod> paymentMethods =
-        [
-            new(
-                PaymentType: "$credit_card",
-                CardBin: this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[..6],
-                CardLast4: this.Faker.Finance.CreditCardNumber(CardType.Visa).Replace("-", string.Empty)[^4..],
-                PaymentGateway: this.Faker.PickRandom("$authorizenet", "$stripe", "$braintree"),
-                VerificationStatus: this.Faker.PickRandom("$success", "$failure", "$pending"),
-                RoutingNumber: null,
-                BankName: null,
-                BankCountry: null,
-                AccountNumberLast5: null
-            ),
-
-            new(
-                PaymentType: "$electronic_fund_transfer",
-                CardBin: null,
-                CardLast4: null,
-                PaymentGateway: null,
-                VerificationStatus: null,
-                RoutingNumber: this.Faker.Finance.RoutingNumber(),
-                BankName: this.Faker.Company.CompanyName(),
-                BankCountry: "US",
-                AccountNumberLast5: this.Faker.Finance.Account(5)
-            ),
-        ];
-
-        var data = new Account(
-            UserEmailAddress: emailAddress,
-            SessionId: this.Faker.Random.Guid().ToString(),
-            UserFullName: this.Faker.Person.FullName,
-            Ip: this.Faker.Internet.Ip(),
-            Browser: new Browser(
-                UserAgent: this.Faker.Internet.UserAgent(),
-                AcceptLanguage: "en-US,en;q=0.9",
-                ContentLanguage: "en-US"
-            ),
-            BillingAddress: new Address(
-                AddressLine1: this.Faker.Address.StreetAddress(),
-                AddressLine2: this.Faker.Random.Bool() ? this.Faker.Address.SecondaryAddress() : null,
-                City: this.Faker.Address.City(),
-                State: this.Faker.Address.StateAbbr(),
-                Country: "US",
-                PostalCode: this.Faker.Address.ZipCode(),
-                Phone: this.Faker.Phone.PhoneNumber("1-###-###-####")
-            ),
-            PaymentMethods: paymentMethods.ToArray(),
-            Time: DateTimeOffset.Now
-        );
-
-        var info = new EntityEventInfo<Account>(entityId, verb, tenantId, Data: data, UserEmailAddress: emailAddress);
+        var info = new EntityEventInfo<Transaction>(entityId, verb, tenantId, data, emailAddress);
 
         return info;
     }

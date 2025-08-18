@@ -1,6 +1,7 @@
 ﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/innago-property-management/CloudEvents")]
 namespace Innago.Platform.Messaging.EntityEvents
 {
+    [JetBrains.Annotations.PublicAPI]
     public class EntityEventInfo<T> : Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<T>, System.IEquatable<Innago.Platform.Messaging.EntityEvents.EntityEventInfo<T>>
     {
         public EntityEventInfo(string Id, Innago.Platform.Messaging.EntityEvents.Verb Verb, string? TenantId = null, T? Data = default, string? UserEmailAddress = null) { }
@@ -14,6 +15,7 @@ namespace Innago.Platform.Messaging.EntityEvents
         public string? UserEmailAddress { get; init; }
         public Innago.Platform.Messaging.EntityEvents.Verb Verb { get; init; }
     }
+    [JetBrains.Annotations.PublicAPI]
     public static class EntityWithIdExtensions
     {
         public static Innago.Platform.Messaging.EntityEvents.IEntityEventInfo<Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId>> ToCreateEntityEventInfo<TId>(this Innago.Platform.Messaging.EntityEvents.IEntityWithId<TId> entity, string? tenantId = null, string? userEmailAddress = null) { }

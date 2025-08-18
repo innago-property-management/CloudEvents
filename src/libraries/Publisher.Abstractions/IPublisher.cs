@@ -6,15 +6,18 @@ using CloudNative.CloudEvents;
 
 using EntityEvents;
 
+using JetBrains.Annotations;
+
 /// <summary>
-/// Defines a contract for publishing CloudEvent messages.
-/// Implementations of this interface are responsible for sending event data
-/// to a messaging system or external target.
+///     Defines a contract for publishing CloudEvent messages.
+///     Implementations of this interface are responsible for sending event data
+///     to a messaging system or external target.
 /// </summary>
+[PublicAPI]
 public interface IPublisher : IAsyncDisposable
 {
     /// <summary>
-    /// Publishes a CloudEvent message asynchronously.
+    ///     Publishes a CloudEvent message asynchronously.
     /// </summary>
     /// <param name="cloudEvent">The CloudEvent to be published.</param>
     /// <param name="typeInfoResolver">The resolver for types from calling code.</param>
@@ -23,7 +26,7 @@ public interface IPublisher : IAsyncDisposable
     public Task PublishAsync<T>(CloudEvent cloudEvent, IJsonTypeInfoResolver typeInfoResolver);
 
     /// <summary>
-    /// Publishes an entity event asynchronously.
+    ///     Publishes an entity event asynchronously.
     /// </summary>
     /// <param name="entityEventInfo">The event information containing details about the entity event.</param>
     /// <param name="typeInfoResolver">The resolver for types from calling code.</param>

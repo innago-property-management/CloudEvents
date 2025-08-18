@@ -88,7 +88,6 @@ public class DependencyInjectionTests
         var actual = ActivatorUtilities.GetServiceOrCreateInstance<IPublisher>(provider) as Publisher;
 
         using var scope = new AssertionScope();
-        actual!.SenderName.Should().Be("entity-event-publisher");
-        actual.Address.Should().Be("/exchange/innago-entity-events");
+        actual!.Sender.Link.Name.Should().Be("entity-event-publisher");
     }
 }

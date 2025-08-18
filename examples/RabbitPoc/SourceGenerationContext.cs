@@ -1,7 +1,6 @@
 namespace RabbitPoc;
 
 using System.Text.Json.Serialization;
-using System.Transactions;
 
 using CloudNative.CloudEvents;
 

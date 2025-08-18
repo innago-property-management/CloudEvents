@@ -6,7 +6,7 @@ Represents connection details required to establish communication
 with a server or broker, including host, port, credentials, and scheme\.
 
 ```csharp
-public AddressInfo(string Host, int Port, string? User=null, string? Password=null, string Path="/", string Scheme="AMQPS");
+public AddressInfo(string Host, int Port, string? User=null, string? Password=null, string? Path=null, string Scheme="AMQPS");
 ```
 #### Parameters
 

@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
-
 namespace Innago.SiftTypes;
+
+using JetBrains.Annotations;
 
 /// <summary>
 ///     Represents a user account with all related information used for Sift Science fraud detection.

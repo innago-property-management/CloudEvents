@@ -16,6 +16,15 @@ public class EntityEventInfoExtensionsTests
     private static Fixture Fixture { get; } = new();
 
     [Fact]
+    public void ToCloudEventShouldEmailAddressCorrectly()
+    {
+        IEntityEventInfo<(string K, string V)> entityEventInfo = MakeEntityEventInfo();
+        var cloudEvent = entityEventInfo.ToCloudEvent();
+
+        cloudEvent["emailaddress"].Should().Be(entityEventInfo.UserEmailAddress);
+    }
+
+    [Fact]
     public void ToCloudEventShouldSetDataCorrectly()
     {
         IEntityEventInfo<(string K, string V)> entityEventInfo = MakeEntityEventInfo();
@@ -96,15 +105,6 @@ public class EntityEventInfoExtensionsTests
 
         cloudEvent.Time.Should().Be(entityEventInfo.Timestamp);
         cloudEvent["timestamp"].Should().Be(entityEventInfo.Timestamp.ToString("O"));
-    }
-
-    [Fact]
-    public void ToCloudEventShouldEmailAddressCorrectly()
-    {
-        IEntityEventInfo<(string K, string V)> entityEventInfo = MakeEntityEventInfo();
-        var cloudEvent = entityEventInfo.ToCloudEvent();
-
-        cloudEvent["emailaddress"].Should().Be(entityEventInfo.UserEmailAddress);
     }
 
     [Fact]

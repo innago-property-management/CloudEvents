@@ -1,6 +1,7 @@
 ﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/innago-property-management/CloudEvents")]
 namespace Innago.Platform.Messaging.Publisher
 {
+    [JetBrains.Annotations.PublicAPI]
     public interface IPublisher : System.IAsyncDisposable
     {
         System.Threading.Tasks.Task PublishAsync<T>(CloudNative.CloudEvents.CloudEvent cloudEvent, System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver typeInfoResolver);
