@@ -9,8 +9,8 @@
 
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.18.1"/>
-        <PackageReference Include="AwesomeAssertions" Version="9.1.0"/>
-        <PackageReference Include="Bogus" Version="35.6.3"/>
+        <PackageReference Include="AwesomeAssertions" Version="9.3.0"/>
+        <PackageReference Include="Bogus" Version="35.6.5"/>
         <PackageReference Include="coverlet.collector" Version="6.0.4">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -19,11 +19,11 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="AwesomeAssertions.Analyzers" Version="9.0.3">
+        <PackageReference Include="AwesomeAssertions.Analyzers" Version="9.0.8">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="DefaultDocumentation" Version="1.2.0">
+        <PackageReference Include="DefaultDocumentation" Version="1.2.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -31,19 +31,19 @@
         <PackageReference Include="JunitXml.TestLogger" Version="6.1.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
         <PackageReference Include="Moq" Version="4.20.72"/>
-        <PackageReference Include="Moq.Analyzers" Version="0.3.0">
+        <PackageReference Include="Moq.Analyzers" Version="0.3.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="PublicApiGenerator" Version="11.4.6"/>
-        <PackageReference Include="System.Diagnostics.EventLog" Version="9.0.8"/>
+        <PackageReference Include="PublicApiGenerator" Version="11.5.0"/>
+        <PackageReference Include="System.Diagnostics.EventLog" Version="9.0.10"/>
         <PackageReference Include="System.Net.Http" Version="4.3.4"/>
         <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1"/>
         <PackageReference Include="Verify.DiffPlex" Version="3.1.2"/>
-        <PackageReference Include="Verify.Xunit" Version="30.7.3"/>
+        <PackageReference Include="Verify.Xunit" Version="30.20.1"/>
         <PackageReference Include="xunit" Version="2.9.3"/>
-        <PackageReference Include="Xunit.OpenCategories" Version="2.2.1.11"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
+        <PackageReference Include="Xunit.OpenCategories" Version="2.3.1.13"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
