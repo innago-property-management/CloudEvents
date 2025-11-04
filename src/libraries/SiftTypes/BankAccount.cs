@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 /// <summary>
 ///     Represents a user BankAccount with all related information used for Sift Science fraud detection.
 /// </summary>
-/// <param name="SessionId">The session identifier associated with the bank account.</param>
 /// <param name="UserId">The user identifier associated with the bank account.</param>
 /// <param name="BankName">The name of the bank.</param>
 /// <param name="AccountType">The type of the bank account (e.g., checking, savings).</param>
