@@ -1,1 +1,0 @@
-Innago.SiftTypes.BankAccount.Deconstruct(out string! UserId, out string! BankName, out string! AccountType, out string! VerifiedStatus, out System.DateTimeOffset Time) -> void

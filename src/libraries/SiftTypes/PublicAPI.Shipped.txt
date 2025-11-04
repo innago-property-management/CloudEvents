@@ -115,7 +115,6 @@ Innago.SiftTypes.Transaction.UserPhone.get -> string!
 Innago.SiftTypes.BankAccount
 Innago.SiftTypes.BankAccount.BankAccount(Innago.SiftTypes.BankAccount! original) -> void
 Innago.SiftTypes.BankAccount.BankAccount(string! UserId, string! BankName, string! AccountType, string! VerifiedStatus, System.DateTimeOffset Time) -> void
-Innago.SiftTypes.BankAccount.Deconstruct(out string! UserId, out string! BankName, out string! AccountType, out string! VerifiedStatus,  out System.DateTimeOffset Time) -> void
 Innago.SiftTypes.BankAccount.UserId.get -> string!
 Innago.SiftTypes.BankAccount.BankName.get -> string!
 Innago.SiftTypes.BankAccount.AccountType.get -> string!
