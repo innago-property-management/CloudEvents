@@ -135,6 +135,9 @@ override Innago.SiftTypes.PaymentMethod.ToString() -> string!
 override Innago.SiftTypes.Transaction.Equals(object? obj) -> bool
 override Innago.SiftTypes.Transaction.GetHashCode() -> int
 override Innago.SiftTypes.Transaction.ToString() -> string!
+override Innago.SiftTypes.BankAccount.Equals(object? obj) -> bool
+override Innago.SiftTypes.BankAccount.GetHashCode() -> int
+override Innago.SiftTypes.BankAccount.ToString() -> string!
 static Innago.SiftTypes.Account.operator !=(Innago.SiftTypes.Account? left, Innago.SiftTypes.Account? right) -> bool
 static Innago.SiftTypes.Account.operator ==(Innago.SiftTypes.Account? left, Innago.SiftTypes.Account? right) -> bool
 static Innago.SiftTypes.Address.operator !=(Innago.SiftTypes.Address? left, Innago.SiftTypes.Address? right) -> bool
@@ -145,6 +148,8 @@ static Innago.SiftTypes.PaymentMethod.operator !=(Innago.SiftTypes.PaymentMethod
 static Innago.SiftTypes.PaymentMethod.operator ==(Innago.SiftTypes.PaymentMethod? left, Innago.SiftTypes.PaymentMethod? right) -> bool
 static Innago.SiftTypes.Transaction.operator !=(Innago.SiftTypes.Transaction? left, Innago.SiftTypes.Transaction? right) -> bool
 static Innago.SiftTypes.Transaction.operator ==(Innago.SiftTypes.Transaction? left, Innago.SiftTypes.Transaction? right) -> bool
+static Innago.SiftTypes.BankAccount.operator !=(Innago.SiftTypes.BankAccount? left, Innago.SiftTypes.BankAccount? right) -> bool
+static Innago.SiftTypes.BankAccount.operator ==(Innago.SiftTypes.BankAccount? left, Innago.SiftTypes.BankAccount? right) -> bool
 virtual Innago.SiftTypes.Account.<Clone>$() -> Innago.SiftTypes.Account!
 virtual Innago.SiftTypes.Account.EqualityContract.get -> System.Type!
 virtual Innago.SiftTypes.Account.Equals(Innago.SiftTypes.Account? other) -> bool
@@ -165,3 +170,7 @@ virtual Innago.SiftTypes.Transaction.<Clone>$() -> Innago.SiftTypes.Transaction!
 virtual Innago.SiftTypes.Transaction.EqualityContract.get -> System.Type!
 virtual Innago.SiftTypes.Transaction.Equals(Innago.SiftTypes.Transaction? other) -> bool
 virtual Innago.SiftTypes.Transaction.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Innago.SiftTypes.BankAccount.<Clone>$() -> Innago.SiftTypes.BankAccount!
+virtual Innago.SiftTypes.BankAccount.EqualityContract.get -> System.Type!
+virtual Innago.SiftTypes.BankAccount.Equals(Innago.SiftTypes.BankAccount? other) -> bool
+virtual Innago.SiftTypes.BankAccount.PrintMembers(System.Text.StringBuilder! builder) -> bool
