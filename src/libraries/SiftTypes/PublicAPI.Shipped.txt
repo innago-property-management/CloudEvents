@@ -112,6 +112,15 @@ Innago.SiftTypes.Transaction.UserFullName.get -> string!
 Innago.SiftTypes.Transaction.UserFullName.init -> void
 Innago.SiftTypes.Transaction.UserId.get -> string!
 Innago.SiftTypes.Transaction.UserPhone.get -> string!
+Innago.SiftTypes.BankAccount
+Innago.SiftTypes.BankAccount.BankAccount(string SessionId, string UserId, string BankName, string AccountType, string VerifiedStatus, System.DateTimeOffset Time)
+Innago.SiftTypes.BankAccount.SessionId.get
+Innago.SiftTypes.BankAccount.UserId.get
+Innago.SiftTypes.BankAccount.BankName.get
+Innago.SiftTypes.BankAccount.AccountType.get
+Innago.SiftTypes.BankAccount.VerifiedStatus.get
+Innago.SiftTypes.BankAccount.Time.get
+Innago.SiftTypes.BankAccount.UnixTime.get
 override Innago.SiftTypes.Account.Equals(object? obj) -> bool
 override Innago.SiftTypes.Account.GetHashCode() -> int
 override Innago.SiftTypes.Account.ToString() -> string!

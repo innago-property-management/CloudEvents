@@ -16,5 +16,6 @@ using Transaction = Innago.SiftTypes.Transaction;
 [JsonSerializable(typeof(IEntityEventInfo<object>))]
 [JsonSerializable(typeof(IEntityEventInfo<Account>))]
 [JsonSerializable(typeof(IEntityEventInfo<Transaction>))]
+[JsonSerializable(typeof(IEntityEventInfo<BankAccount>))]
 [JsonSerializable(typeof(CloudEvent))]
 internal partial class SourceGenerationContext : JsonSerializerContext;
