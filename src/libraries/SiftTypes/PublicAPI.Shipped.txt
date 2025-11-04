@@ -121,6 +121,7 @@ Innago.SiftTypes.BankAccount.AccountType.get -> string
 Innago.SiftTypes.BankAccount.VerifiedStatus.get -> string
 Innago.SiftTypes.BankAccount.Time.get -> System.DateTimeOffset
 Innago.SiftTypes.BankAccount.UnixTime.get -> long
+Innago.SiftTypes.BankAccount.Deconstruct(out string UserId, out string BankName, out string! AccountType, out string VerifiedStatus,  out System.DateTimeOffset Time) -> void
 override Innago.SiftTypes.Account.Equals(object? obj) -> bool
 override Innago.SiftTypes.Account.GetHashCode() -> int
 override Innago.SiftTypes.Account.ToString() -> string!
