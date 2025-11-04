@@ -112,6 +112,21 @@ Innago.SiftTypes.Transaction.UserFullName.get -> string!
 Innago.SiftTypes.Transaction.UserFullName.init -> void
 Innago.SiftTypes.Transaction.UserId.get -> string!
 Innago.SiftTypes.Transaction.UserPhone.get -> string!
+Innago.SiftTypes.BankAccount
+Innago.SiftTypes.BankAccount.BankAccount(Innago.SiftTypes.BankAccount! original) -> void
+Innago.SiftTypes.BankAccount.BankAccount(string! UserId, string! BankName, string! AccountType, string! VerifiedStatus, System.DateTimeOffset Time) -> void
+Innago.SiftTypes.BankAccount.UserId.get -> string!
+Innago.SiftTypes.BankAccount.BankName.get -> string!
+Innago.SiftTypes.BankAccount.AccountType.get -> string!
+Innago.SiftTypes.BankAccount.VerifiedStatus.get -> string!
+Innago.SiftTypes.BankAccount.Time.get -> System.DateTimeOffset
+Innago.SiftTypes.BankAccount.UnixTime.get -> long
+Innago.SiftTypes.BankAccount.AccountType.init -> void
+Innago.SiftTypes.BankAccount.BankName.init -> void
+Innago.SiftTypes.BankAccount.Deconstruct(out string! UserId, out string! BankName, out string! AccountType, out string! VerifiedStatus, out System.DateTimeOffset Time) -> void
+Innago.SiftTypes.BankAccount.Time.init -> void
+Innago.SiftTypes.BankAccount.UserId.init -> void
+Innago.SiftTypes.BankAccount.VerifiedStatus.init -> void
 override Innago.SiftTypes.Account.Equals(object? obj) -> bool
 override Innago.SiftTypes.Account.GetHashCode() -> int
 override Innago.SiftTypes.Account.ToString() -> string!
@@ -127,6 +142,9 @@ override Innago.SiftTypes.PaymentMethod.ToString() -> string!
 override Innago.SiftTypes.Transaction.Equals(object? obj) -> bool
 override Innago.SiftTypes.Transaction.GetHashCode() -> int
 override Innago.SiftTypes.Transaction.ToString() -> string!
+override Innago.SiftTypes.BankAccount.Equals(object? obj) -> bool
+override Innago.SiftTypes.BankAccount.GetHashCode() -> int
+override Innago.SiftTypes.BankAccount.ToString() -> string!
 static Innago.SiftTypes.Account.operator !=(Innago.SiftTypes.Account? left, Innago.SiftTypes.Account? right) -> bool
 static Innago.SiftTypes.Account.operator ==(Innago.SiftTypes.Account? left, Innago.SiftTypes.Account? right) -> bool
 static Innago.SiftTypes.Address.operator !=(Innago.SiftTypes.Address? left, Innago.SiftTypes.Address? right) -> bool
@@ -137,6 +155,8 @@ static Innago.SiftTypes.PaymentMethod.operator !=(Innago.SiftTypes.PaymentMethod
 static Innago.SiftTypes.PaymentMethod.operator ==(Innago.SiftTypes.PaymentMethod? left, Innago.SiftTypes.PaymentMethod? right) -> bool
 static Innago.SiftTypes.Transaction.operator !=(Innago.SiftTypes.Transaction? left, Innago.SiftTypes.Transaction? right) -> bool
 static Innago.SiftTypes.Transaction.operator ==(Innago.SiftTypes.Transaction? left, Innago.SiftTypes.Transaction? right) -> bool
+static Innago.SiftTypes.BankAccount.operator !=(Innago.SiftTypes.BankAccount? left, Innago.SiftTypes.BankAccount? right) -> bool
+static Innago.SiftTypes.BankAccount.operator ==(Innago.SiftTypes.BankAccount? left, Innago.SiftTypes.BankAccount? right) -> bool
 virtual Innago.SiftTypes.Account.<Clone>$() -> Innago.SiftTypes.Account!
 virtual Innago.SiftTypes.Account.EqualityContract.get -> System.Type!
 virtual Innago.SiftTypes.Account.Equals(Innago.SiftTypes.Account? other) -> bool
@@ -157,3 +177,7 @@ virtual Innago.SiftTypes.Transaction.<Clone>$() -> Innago.SiftTypes.Transaction!
 virtual Innago.SiftTypes.Transaction.EqualityContract.get -> System.Type!
 virtual Innago.SiftTypes.Transaction.Equals(Innago.SiftTypes.Transaction? other) -> bool
 virtual Innago.SiftTypes.Transaction.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Innago.SiftTypes.BankAccount.<Clone>$() -> Innago.SiftTypes.BankAccount!
+virtual Innago.SiftTypes.BankAccount.EqualityContract.get -> System.Type!
+virtual Innago.SiftTypes.BankAccount.Equals(Innago.SiftTypes.BankAccount? other) -> bool
+virtual Innago.SiftTypes.BankAccount.PrintMembers(System.Text.StringBuilder! builder) -> bool

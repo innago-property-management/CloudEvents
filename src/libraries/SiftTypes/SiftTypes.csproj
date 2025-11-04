@@ -36,11 +36,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DefaultDocumentation" Version="1.2.0">
+        <PackageReference Include="DefaultDocumentation" Version="1.2.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2"/>
         <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -53,7 +53,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="System.Text.Json" Version="9.0.8"/>
+        <PackageReference Include="System.Text.Json" Version="9.0.10"/>
     </ItemGroup>
 
     <ItemGroup>
