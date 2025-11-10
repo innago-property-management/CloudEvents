@@ -14,13 +14,15 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 
 | Constructors | |
 | :--- | :--- |
-| [BankAccount\(string, string, string, string, DateTimeOffset\)](BankAccount(string,string,string,string,DateTimeOffset).md 'Innago\.SiftTypes\.BankAccount\.BankAccount\(string, string, string, string, System\.DateTimeOffset\)') | Represents a user BankAccount with all related information used for Sift Science fraud detection\. |
+| [BankAccount\(string, string, string, string, string, string, DateTimeOffset\)](BankAccount(string,string,string,string,string,string,DateTimeOffset).md 'Innago\.SiftTypes\.BankAccount\.BankAccount\(string, string, string, string, string, string, System\.DateTimeOffset\)') | Represents a user BankAccount with all related information used for Sift Science fraud detection\. |
 
 | Properties | |
 | :--- | :--- |
 | [AccountType](AccountType.md 'Innago\.SiftTypes\.BankAccount\.AccountType') | The type of the bank account \(e\.g\., checking, savings\)\. |
 | [BankName](BankName.md 'Innago\.SiftTypes\.BankAccount\.BankName') | The name of the bank\. |
+| [SessionId](SessionId.md 'Innago\.SiftTypes\.BankAccount\.SessionId') | |
 | [Time](Time.md 'Innago\.SiftTypes\.BankAccount\.Time') | The timestamp of the bank account information\. |
 | [UnixTime](UnixTime.md 'Innago\.SiftTypes\.BankAccount\.UnixTime') | Gets the timestamp as Unix time in milliseconds\. |
+| [UserEmail](UserEmail.md 'Innago\.SiftTypes\.BankAccount\.UserEmail') | |
+| [UserFullName](UserFullName.md 'Innago\.SiftTypes\.BankAccount\.UserFullName') | |
 | [UserId](UserId.md 'Innago\.SiftTypes\.BankAccount\.UserId') | The user identifier associated with the bank account\. |
-| [VerifiedStatus](VerifiedStatus.md 'Innago\.SiftTypes\.BankAccount\.VerifiedStatus') | The verification status of the bank account\. |

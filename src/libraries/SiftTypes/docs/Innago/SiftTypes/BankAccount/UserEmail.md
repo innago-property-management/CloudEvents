@@ -1,11 +1,9 @@
 ### [Innago\.SiftTypes](../index.md 'Innago\.SiftTypes').[BankAccount](index.md 'Innago\.SiftTypes\.BankAccount')
 
-## BankAccount\.VerifiedStatus Property
-
-The verification status of the bank account\.
+## BankAccount\.UserEmail Property
 
 ```csharp
-public string VerifiedStatus { get; init; }
+public string UserEmail { get; init; }
 ```
 
 #### Property Value
