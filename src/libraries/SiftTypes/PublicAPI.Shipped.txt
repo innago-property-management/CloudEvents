@@ -113,20 +113,24 @@ Innago.SiftTypes.Transaction.UserFullName.init -> void
 Innago.SiftTypes.Transaction.UserId.get -> string!
 Innago.SiftTypes.Transaction.UserPhone.get -> string!
 Innago.SiftTypes.BankAccount
-Innago.SiftTypes.BankAccount.BankAccount(Innago.SiftTypes.BankAccount! original) -> void
-Innago.SiftTypes.BankAccount.BankAccount(string! UserId, string! BankName, string! AccountType, string! VerifiedStatus, System.DateTimeOffset Time) -> void
-Innago.SiftTypes.BankAccount.UserId.get -> string!
-Innago.SiftTypes.BankAccount.BankName.get -> string!
+Innago.SiftTypes.BankAccount.BankAccount(string! UserId, string! UserEmail, string! UserFullName, string! SessionId, string! BankName, string! AccountType, System.DateTimeOffset Time) -> void
+Innago.SiftTypes.BankAccount.Deconstruct(out string! UserId, out string! UserEmail, out string! UserFullName, out string! SessionId, out string! BankName, out string! AccountType, out System.DateTimeOffset Time) -> void
+Innago.SiftTypes.BankAccount.SessionId.get -> string!
+Innago.SiftTypes.BankAccount.SessionId.init -> void
+Innago.SiftTypes.BankAccount.UserEmail.get -> string!
+Innago.SiftTypes.BankAccount.UserEmail.init -> void
+Innago.SiftTypes.BankAccount.UserFullName.get -> string!
+Innago.SiftTypes.BankAccount.UserFullName.init -> void
 Innago.SiftTypes.BankAccount.AccountType.get -> string!
-Innago.SiftTypes.BankAccount.VerifiedStatus.get -> string!
-Innago.SiftTypes.BankAccount.Time.get -> System.DateTimeOffset
-Innago.SiftTypes.BankAccount.UnixTime.get -> long
 Innago.SiftTypes.BankAccount.AccountType.init -> void
+Innago.SiftTypes.BankAccount.BankAccount(Innago.SiftTypes.BankAccount! original) -> void
+Innago.SiftTypes.BankAccount.BankName.get -> string!
 Innago.SiftTypes.BankAccount.BankName.init -> void
-Innago.SiftTypes.BankAccount.Deconstruct(out string! UserId, out string! BankName, out string! AccountType, out string! VerifiedStatus, out System.DateTimeOffset Time) -> void
+Innago.SiftTypes.BankAccount.Time.get -> System.DateTimeOffset
 Innago.SiftTypes.BankAccount.Time.init -> void
+Innago.SiftTypes.BankAccount.UnixTime.get -> long
+Innago.SiftTypes.BankAccount.UserId.get -> string!
 Innago.SiftTypes.BankAccount.UserId.init -> void
-Innago.SiftTypes.BankAccount.VerifiedStatus.init -> void
 override Innago.SiftTypes.Account.Equals(object? obj) -> bool
 override Innago.SiftTypes.Account.GetHashCode() -> int
 override Innago.SiftTypes.Account.ToString() -> string!
